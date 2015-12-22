@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\e474b158664b54ef23c004463d25ab12\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3A3310A5-0DBE-45FF-A0FC-5A360B8445FC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

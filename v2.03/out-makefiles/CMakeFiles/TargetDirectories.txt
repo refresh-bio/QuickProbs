@@ -1,0 +1,5 @@
+/home/adam/trunk/out-makefiles/Alignment/CMakeFiles/Alignment.dir
+/home/adam/trunk/out-makefiles/Common/CMakeFiles/Common.dir
+/home/adam/trunk/out-makefiles/Console-OpenCL/CMakeFiles/Console-OpenCl.dir
+/home/adam/trunk/out-makefiles/Hardware/CMakeFiles/Hardware.dir
+/home/adam/trunk/out-makefiles/KernelRepository/CMakeFiles/KernelRepository.dir

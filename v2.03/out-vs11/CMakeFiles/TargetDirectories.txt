@@ -1,0 +1,7 @@
+E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/Alignment/CMakeFiles/Alignment.dir
+E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/Console-OpenCL/CMakeFiles/Console-OpenCl.dir
+E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/Common/CMakeFiles/Common.dir
+E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/ALL_BUILD.dir
+E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/ZERO_CHECK.dir
+E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/Hardware/CMakeFiles/Hardware.dir
+E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/KernelRepository/CMakeFiles/KernelRepository.dir

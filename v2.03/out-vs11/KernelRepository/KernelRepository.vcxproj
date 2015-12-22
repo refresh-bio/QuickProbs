@@ -1,0 +1,299 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{869728F7-823E-4525-B990-B78E6F5D5A44}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>KernelRepository</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">KernelRepository.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">KernelRepository</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">KernelRepository.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">KernelRepository</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\MinSizeRel\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">KernelRepository.dir\MinSizeRel\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">KernelRepository</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\RelWithDebInfo\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">KernelRepository.dir\RelWithDebInfo\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">KernelRepository</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;QUICKPROBS_VERSION=2.03;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;QUICKPROBS_VERSION=2.03;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QUICKPROBS_VERSION=2.03;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QUICKPROBS_VERSION=2.03;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QUICKPROBS_VERSION=2.03;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QUICKPROBS_VERSION=2.03;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OpenMPSupport>true</OpenMPSupport>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QUICKPROBS_VERSION=2.03;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;QUICKPROBS_VERSION=2.03;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src;E:\SDKs\boost_1_55_0;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\..\libs-vs11\opencl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src/KernelRepository/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" "-HE:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src" "-BE:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11" --check-stamp-file "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src/KernelRepository/CMakeLists.txt;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src/KernelRepository/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" "-HE:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src" "-BE:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11" --check-stamp-file "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src/KernelRepository/CMakeLists.txt;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src/KernelRepository/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" "-HE:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src" "-BE:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11" --check-stamp-file "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src/KernelRepository/CMakeLists.txt;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src/KernelRepository/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" "-HE:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src" "-BE:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11" --check-stamp-file "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\CMakeFiles\generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/src/KernelRepository/CMakeLists.txt;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt;E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\KernelRepository\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\KernelFactory.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\KernelRepository.h" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\KernelFactory.cpp"  />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\KernelRepository.cpp"  />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\process_kernel_files.py" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\AuxiliaryStructures.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\BinarySearch.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Finalization.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Finalization_long.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\LogarithmUtils.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MemoryTransfers.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Partition.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\PartitionLogarithm.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Partition_long.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\PartitionLogarithm_long.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Probabilistic.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Probabilistic_long.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Random.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\ScoreType.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\SparseMatrix.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\SparseMatrix_long.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Utils.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleConsistency_old.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleConsistencyUtils.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultiplePartition.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleProbabilistic.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleFinalization.cl" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleSparse.cl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/Common/Common.vcxproj">
+      <Project>595E30EF-A192-400B-B478-3757E8BDB8C0</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/Hardware/Hardware.vcxproj">
+      <Project>D1A345AE-5BC3-41D4-9393-AE415E645C48</Project>
+    </ProjectReference>
+    <ProjectReference Include="E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/ZERO_CHECK.vcxproj">
+      <Project>34612BD8-1268-48EB-B4FF-2ED6F14B467C</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

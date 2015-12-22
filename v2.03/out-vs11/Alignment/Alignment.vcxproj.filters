@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\Backtrack.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\AminoAcidMatrices.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\NeedlemanWunsch.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\NucleotideMatrices.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\NucleotideHmmGTR5.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\PairHmm.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\PfamHmm5.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\ProteinHmm3.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\ProteinHmm5.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\SmithWaterman.cpp">
+      <Filter>Pairwise</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\ContiguousMultiSequence.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\FilteredSparseMatrix.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\MultiSequence.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\PackedSparseMatrix.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\Sequence.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\SequenceIO.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\SparseHelper.cpp">
+      <Filter>DataStructures</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ConsistencyStage.cpp">
+      <Filter>Multiple\Consistency</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\QuickConsistencyStage.cpp">
+      <Filter>Multiple\Consistency</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\RelaxationTask.cpp">
+      <Filter>Multiple\Consistency</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\RelaxationSector.cpp">
+      <Filter>Multiple\Consistency</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\AminoAcidProperties.cpp">
+      <Filter>Multiple\Final</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\EntropyEvaluator.cpp">
+      <Filter>Multiple\Final</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ColumnRefinement.cpp">
+      <Filter>Multiple\Final</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ConstructionStage.cpp">
+      <Filter>Multiple\Final</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\RefinementBase.cpp">
+      <Filter>Multiple\Final</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\RandomRefinement.cpp">
+      <Filter>Multiple\Final</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ScoringRefinement.cpp">
+      <Filter>Multiple\Final</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ClusterTree.cpp">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\GuideTree.cpp">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\NewickTree.cpp">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\PhylipTree.cpp">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\KernelSet.cpp">
+      <Filter>Multiple\Posterior</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ParallelProbabilisticModel.cpp">
+      <Filter>Multiple\Posterior</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\PartitionFunction.cpp">
+      <Filter>Multiple\Posterior</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\PosteriorStage.cpp">
+      <Filter>Multiple\Posterior</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\PosteriorTasksWave.cpp">
+      <Filter>Multiple\Posterior</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ProbabilisticParams.cpp">
+      <Filter>Multiple\Posterior</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ProbabilisticModel.cpp">
+      <Filter>Multiple\Posterior</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\QuickPosteriorStage.cpp">
+      <Filter>Multiple\Posterior</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\Configuration.cpp">
+      <Filter>Multiple</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ExtendedMSA.cpp">
+      <Filter>Multiple</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\KernelMSA.cpp">
+      <Filter>Multiple</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Alignment.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\Backtrack.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\AminoAcidMatrices.hpp">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\AminoAcidMatrices.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\IPairwiseAligner.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\NeedlemanWunsch.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\NucleotideMatrices.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\NucleotideMatrices.hpp">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\NucleotideHmmGTR5.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\PairHmm.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\PairHmmFactory.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\PfamHmm5.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\ProteinHmm3.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\ProteinHmm5.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\Scoring.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\ScoringFactory.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Pairwise\SmithWaterman.h">
+      <Filter>Pairwise</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\ContiguousMultiSequence.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\FilteredSparseMatrix.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\FilteredSparseMatrix.hpp">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\ISequenceSet.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\ISparseMatrix.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\JaggedMatrix.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\MultiSequence.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\PackedSparseMatrix.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\PackedSparseMatrix.hpp">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\Sequence.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\SequenceIO.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\SparseEntry.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\SparseHelper.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\DataStructures\SparseMatrixType.h">
+      <Filter>DataStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ConsistencyStage.h">
+      <Filter>Multiple\Consistency</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\QuickConsistencyStage.h">
+      <Filter>Multiple\Consistency</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\RelaxationKernelWrapper.h">
+      <Filter>Multiple\Consistency</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\RelaxationSector.h">
+      <Filter>Multiple\Consistency</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\AlignmentEvaluatorBase.h">
+      <Filter>Multiple\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\AminoAcidProperties.h">
+      <Filter>Multiple\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\EntropyEvaluator.h">
+      <Filter>Multiple\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ColumnRefinement.h">
+      <Filter>Multiple\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ConstructionStage.h">
+      <Filter>Multiple\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\RefinementBase.h">
+      <Filter>Multiple\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\RandomRefinement.h">
+      <Filter>Multiple\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ScoringRefinement.h">
+      <Filter>Multiple\Final</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\Node.h">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ClusterTree.h">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\GuideTree.h">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\NewickTree.h">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\PhylipTree.h">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\TreeGrammar.h">
+      <Filter>Multiple\Phylogeny</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\BufferSet.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\IAlgorithmStage.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\IPartitionFunctionParams.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\KernelSet.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ParallelProbabilisticModel.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ExpPartitionFunctionParams.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\LogPartitionFunctionParams.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\PartitionFunction.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\PosteriorStage.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\PosteriorTasksWave.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ProbabilisticParams.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ProbabilisticModel.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\QuickPosteriorStage.h">
+      <Filter>Multiple\Posterior</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\AuxiliaryStructures.h">
+      <Filter>Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\Common.h">
+      <Filter>Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\Configuration.h">
+      <Filter>Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ConfigurationHelper.h">
+      <Filter>Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ExtendedMSA.h">
+      <Filter>Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ITasksWave.h">
+      <Filter>Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\KernelMSA.h">
+      <Filter>Multiple</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\Multiple\ScoreType.h">
+      <Filter>Multiple</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Alignment\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Pairwise">
+      <UniqueIdentifier>{F3676657-718F-46B2-8109-91C4801B6705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataStructures">
+      <UniqueIdentifier>{9FE9AF86-CA60-455F-9EDF-680B39B7B96C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Multiple">
+      <UniqueIdentifier>{F9F0A49B-E9A5-43C0-A45F-39F13462CF6F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Multiple\Consistency">
+      <UniqueIdentifier>{F4D8B2E6-6567-4CEF-9222-26C62BE75F60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Multiple\Final">
+      <UniqueIdentifier>{C3133FD9-9C4F-4E1B-B951-D59DBC630FF2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Multiple\Phylogeny">
+      <UniqueIdentifier>{91AE1EE0-E2E1-44C3-98B9-35DD64CE5429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Multiple\Posterior">
+      <UniqueIdentifier>{D755CDB7-6BA6-46D2-92A1-EA50CF66EE17}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

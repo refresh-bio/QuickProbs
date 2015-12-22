@@ -1,0 +1,333 @@
+The system is: Windows - 6.1 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler:  
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) Build Engine version 4.6.81.0
+[Microsoft .NET Framework, version 4.0.30319.42000]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 12/22/2015 13:56:07.
+Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\3.2.2\CompilerIdC\CompilerIdC.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Debug\".
+InitializeBuildStatus:
+  Creating "Debug\CompilerIdC.unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /nologo /W0 /WX- /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TC /errorReport:queue CMakeCCompilerId.c
+  CMakeCCompilerId.c
+Link:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdC.lib" /MACHINE:X64 Debug\CMakeCCompilerId.obj
+  CompilerIdC.vcxproj -> E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\3.2.2\CompilerIdC\.\CompilerIdC.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_C_COMPILER=D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\cl.exe
+FinalizeBuildStatus:
+  Deleting file "Debug\CompilerIdC.unsuccessfulbuild".
+  Touching "Debug\CompilerIdC.lastbuildstate".
+Done Building Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\3.2.2\CompilerIdC\CompilerIdC.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.28
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+
+The C compiler identification is MSVC, found in "E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/3.2.2/CompilerIdC/CompilerIdC.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler:  
+Build flags: 
+Id flags: 
+
+The output was:
+0
+Microsoft (R) Build Engine version 4.6.81.0
+[Microsoft .NET Framework, version 4.0.30319.42000]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 12/22/2015 13:56:08.
+Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\3.2.2\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "Debug\".
+InitializeBuildStatus:
+  Creating "Debug\CompilerIdCXX.unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /nologo /W0 /WX- /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /errorReport:queue CMakeCXXCompilerId.cpp
+  CMakeCXXCompilerId.cpp
+Link:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:".\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\CompilerIdCXX.lib" /MACHINE:X64 Debug\CMakeCXXCompilerId.obj
+  CompilerIdCXX.vcxproj -> E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\3.2.2\CompilerIdCXX\.\CompilerIdCXX.exe
+PostBuildEvent:
+  for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+  :VCEnd
+  CMAKE_CXX_COMPILER=D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\cl.exe
+FinalizeBuildStatus:
+  Deleting file "Debug\CompilerIdCXX.unsuccessfulbuild".
+  Touching "Debug\CompilerIdCXX.lastbuildstate".
+Done Building Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\3.2.2\CompilerIdCXX\CompilerIdCXX.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.28
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+
+The CXX compiler identification is MSVC, found in "E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/3.2.2/CompilerIdCXX/CompilerIdCXX.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe" "cmTryCompileExec4248946696.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=11.0"
+Microsoft (R) Build Engine version 4.6.81.0
+[Microsoft .NET Framework, version 4.0.30319.42000]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 12/22/2015 13:56:08.
+Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec4248946696.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec4248946696.dir\Debug\".
+  Creating directory "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec4248946696.dir\Debug\cmTryCompileExec4248946696.unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec4248946696.dir\Debug\\" /Fd"cmTryCompileExec4248946696.dir\Debug\vc110.pdb" /Gd /TC /errorReport:queue "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\testCCompiler.c"
+  Microsoft (R) C/C++ Optimizing Compiler Version 17.00.61030 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec4248946696.dir\Debug\\" /Fd"cmTryCompileExec4248946696.dir\Debug\vc110.pdb" /Gd /TC /errorReport:queue "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\testCCompiler.c"
+  
+  testCCompiler.c
+Link:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4248946696.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win64" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec4248946696.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec4248946696.lib" /MACHINE:X64  /machine:x64 /debug cmTryCompileExec4248946696.dir\Debug\testCCompiler.obj
+  cmTryCompileExec4248946696.vcxproj -> E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec4248946696.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec4248946696.dir\Debug\cmTryCompileExec4248946696.unsuccessfulbuild".
+  Touching "cmTryCompileExec4248946696.dir\Debug\cmTryCompileExec4248946696.lastbuildstate".
+Done Building Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec4248946696.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.57
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe" "cmTryCompileExec3645326580.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=11.0"
+Microsoft (R) Build Engine version 4.6.81.0
+[Microsoft .NET Framework, version 4.0.30319.42000]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 12/22/2015 13:56:09.
+Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec3645326580.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec3645326580.dir\Debug\".
+  Creating directory "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec3645326580.dir\Debug\cmTryCompileExec3645326580.unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3645326580.dir\Debug\\" /Fd"cmTryCompileExec3645326580.dir\Debug\vc110.pdb" /Gd /TC /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCCompilerABI.c"
+  Microsoft (R) C/C++ Optimizing Compiler Version 17.00.61030 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3645326580.dir\Debug\\" /Fd"cmTryCompileExec3645326580.dir\Debug\vc110.pdb" /Gd /TC /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCCompilerABI.c"
+  
+  CMakeCCompilerABI.c
+Link:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3645326580.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win64" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3645326580.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3645326580.lib" /MACHINE:X64  /machine:x64 /debug cmTryCompileExec3645326580.dir\Debug\CMakeCCompilerABI.obj
+  cmTryCompileExec3645326580.vcxproj -> E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3645326580.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec3645326580.dir\Debug\cmTryCompileExec3645326580.unsuccessfulbuild".
+  Touching "cmTryCompileExec3645326580.dir\Debug\cmTryCompileExec3645326580.lastbuildstate".
+Done Building Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec3645326580.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.33
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe" "cmTryCompileExec1187380893.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=11.0"
+Microsoft (R) Build Engine version 4.6.81.0
+[Microsoft .NET Framework, version 4.0.30319.42000]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 12/22/2015 13:56:09.
+Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec1187380893.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec1187380893.dir\Debug\".
+  Creating directory "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec1187380893.dir\Debug\cmTryCompileExec1187380893.unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec1187380893.dir\Debug\\" /Fd"cmTryCompileExec1187380893.dir\Debug\vc110.pdb" /Gd /TP /errorReport:queue "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  Microsoft (R) C/C++ Optimizing Compiler Version 17.00.61030 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec1187380893.dir\Debug\\" /Fd"cmTryCompileExec1187380893.dir\Debug\vc110.pdb" /Gd /TP /errorReport:queue "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  
+  testCXXCompiler.cxx
+Link:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1187380893.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win64" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1187380893.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1187380893.lib" /MACHINE:X64  /machine:x64 /debug cmTryCompileExec1187380893.dir\Debug\testCXXCompiler.obj
+  cmTryCompileExec1187380893.vcxproj -> E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1187380893.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec1187380893.dir\Debug\cmTryCompileExec1187380893.unsuccessfulbuild".
+  Touching "cmTryCompileExec1187380893.dir\Debug\cmTryCompileExec1187380893.lastbuildstate".
+Done Building Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec1187380893.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.32
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe" "cmTryCompileExec2910763834.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=11.0"
+Microsoft (R) Build Engine version 4.6.81.0
+[Microsoft .NET Framework, version 4.0.30319.42000]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 12/22/2015 13:56:10.
+Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec2910763834.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec2910763834.dir\Debug\".
+  Creating directory "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec2910763834.dir\Debug\cmTryCompileExec2910763834.unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec2910763834.dir\Debug\\" /Fd"cmTryCompileExec2910763834.dir\Debug\vc110.pdb" /Gd /TP /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCXXCompilerABI.cpp"
+  Microsoft (R) C/C++ Optimizing Compiler Version 17.00.61030 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec2910763834.dir\Debug\\" /Fd"cmTryCompileExec2910763834.dir\Debug\vc110.pdb" /Gd /TP /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCXXCompilerABI.cpp"
+  
+  CMakeCXXCompilerABI.cpp
+Link:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec2910763834.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win64" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec2910763834.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec2910763834.lib" /MACHINE:X64  /machine:x64 /debug cmTryCompileExec2910763834.dir\Debug\CMakeCXXCompilerABI.obj
+  cmTryCompileExec2910763834.vcxproj -> E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec2910763834.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec2910763834.dir\Debug\cmTryCompileExec2910763834.unsuccessfulbuild".
+  Touching "cmTryCompileExec2910763834.dir\Debug\cmTryCompileExec2910763834.lastbuildstate".
+Done Building Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec2910763834.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.32
+
+
+
+
+Detecting CXX [] compiler features compiled with the following output:
+Change Dir: E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Windows/Microsoft.NET/Framework/v4.0.30319/MSBuild.exe" "cmTryCompileExec3874841052.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=11.0"
+Microsoft (R) Build Engine version 4.6.81.0
+[Microsoft .NET Framework, version 4.0.30319.42000]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 12/22/2015 13:56:10.
+Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec3874841052.vcxproj" on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "cmTryCompileExec3874841052.dir\Debug\".
+  Creating directory "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\".
+InitializeBuildStatus:
+  Creating "cmTryCompileExec3874841052.dir\Debug\cmTryCompileExec3874841052.unsuccessfulbuild" because "AlwaysCreate" was specified.
+ClCompile:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec3874841052.dir\Debug\\" /Fd"cmTryCompileExec3874841052.dir\Debug\vc110.pdb" /Gd /TP /errorReport:queue "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\feature_tests.cxx"
+  Microsoft (R) C/C++ Optimizing Compiler Version 17.00.61030 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /I"C:\Program Files (x86)\Visual Leak Detector\include" /Zi /W3 /WX- /Od /Ob0 /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec3874841052.dir\Debug\\" /Fd"cmTryCompileExec3874841052.dir\Debug\vc110.pdb" /Gd /TP /errorReport:queue "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\feature_tests.cxx"
+  
+  feature_tests.cxx
+Link:
+  D:\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:QUEUE /OUT:"E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3874841052.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win64" kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3874841052.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:/studia/Projekty/Multiple sequence alignment/Parallel-MSAProbs/Source/trunk/out-vs11/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3874841052.lib" /MACHINE:X64  /machine:x64 /debug cmTryCompileExec3874841052.dir\Debug\feature_tests.obj
+  cmTryCompileExec3874841052.vcxproj -> E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3874841052.exe
+FinalizeBuildStatus:
+  Deleting file "cmTryCompileExec3874841052.dir\Debug\cmTryCompileExec3874841052.unsuccessfulbuild".
+  Touching "cmTryCompileExec3874841052.dir\Debug\cmTryCompileExec3874841052.lastbuildstate".
+Done Building Project "E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\out-vs11\CMakeFiles\CMakeTmp\cmTryCompileExec3874841052.vcxproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.32
+
+
+    Feature record: CXX_FEATURE:0cxx_alias_templates
+    Feature record: CXX_FEATURE:0cxx_alignas
+    Feature record: CXX_FEATURE:0cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:0cxx_binary_literals
+    Feature record: CXX_FEATURE:0cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:0cxx_decltype_auto
+    Feature record: CXX_FEATURE:0cxx_default_function_template_args
+    Feature record: CXX_FEATURE:0cxx_defaulted_functions
+    Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:0cxx_delegating_constructors
+    Feature record: CXX_FEATURE:0cxx_deleted_functions
+    Feature record: CXX_FEATURE:0cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:0cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:0cxx_func_identifier
+    Feature record: CXX_FEATURE:0cxx_generalized_initializers
+    Feature record: CXX_FEATURE:0cxx_generic_lambdas
+    Feature record: CXX_FEATURE:0cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:0cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:0cxx_noexcept
+    Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:0cxx_raw_string_literals
+    Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:0cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:0cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:0cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:0cxx_unicode_literals
+    Feature record: CXX_FEATURE:0cxx_uniform_initialization
+    Feature record: CXX_FEATURE:0cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:0cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:0cxx_variadic_templates

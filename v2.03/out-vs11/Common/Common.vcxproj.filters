@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\mathex.cpp" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\Log.cpp" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\StatisticsProvider.cpp" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\WindowsMemoryTools.cpp" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\UnixMemoryTools.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\Array.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\dbgnew.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\mathex.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\Log.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\Named.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\PlacementAllocator.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\Printable.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\ProgramOptions.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\StatisticsProvider.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\Timer.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\MemoryTools.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\WindowsMemoryTools.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\UnixMemoryTools.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Common\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

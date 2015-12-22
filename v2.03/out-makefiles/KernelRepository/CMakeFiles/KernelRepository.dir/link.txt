@@ -1,0 +1,2 @@
+/usr/bin/ar cr libKernelRepository.a  CMakeFiles/KernelRepository.dir/KernelFactory.cpp.o CMakeFiles/KernelRepository.dir/KernelRepository.cpp.o
+/usr/bin/ranlib libKernelRepository.a

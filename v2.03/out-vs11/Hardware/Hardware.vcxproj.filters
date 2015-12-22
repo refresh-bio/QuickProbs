@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\DeviceInfo.cpp" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\DeviceWrapper.cpp" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\OpenCl.cpp" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\Buffer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\EventHandler.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\DeviceInfo.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\DeviceWrapper.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\OpenCl.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\OpenCLError.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\Buffer.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\Kernel.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\PlatformInfo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\Hardware\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

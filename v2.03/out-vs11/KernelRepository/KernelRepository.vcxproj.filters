@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\KernelFactory.cpp" />
+    <ClCompile Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\KernelRepository.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\KernelFactory.h" />
+    <ClInclude Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\KernelRepository.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\process_kernel_files.py" />
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\AuxiliaryStructures.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\BinarySearch.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Finalization.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Finalization_long.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\LogarithmUtils.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MemoryTransfers.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Partition.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\PartitionLogarithm.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Partition_long.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\PartitionLogarithm_long.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Probabilistic.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Probabilistic_long.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Random.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\ScoreType.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\SparseMatrix.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\SparseMatrix_long.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\Utils.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleConsistency_old.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleConsistencyUtils.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultiplePartition.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleProbabilistic.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleFinalization.cl">
+      <Filter>Kernels</Filter>
+    </None>
+    <None Include="E:\studia\Projekty\Multiple sequence alignment\Parallel-MSAProbs\Source\trunk\src\KernelRepository\MultipleSparse.cl">
+      <Filter>Kernels</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Kernels">
+      <UniqueIdentifier>{BC6AB241-0372-44B7-8886-22D5ED315528}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
