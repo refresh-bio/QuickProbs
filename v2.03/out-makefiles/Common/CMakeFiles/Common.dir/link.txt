@@ -1,2 +1,0 @@
-/usr/bin/ar cr libCommon.a  CMakeFiles/Common.dir/mathex.cpp.o CMakeFiles/Common.dir/Log.cpp.o CMakeFiles/Common.dir/StatisticsProvider.cpp.o CMakeFiles/Common.dir/WindowsMemoryTools.cpp.o CMakeFiles/Common.dir/UnixMemoryTools.cpp.o
-/usr/bin/ranlib libCommon.a

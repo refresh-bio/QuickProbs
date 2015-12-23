@@ -51,7 +51,7 @@ Configuration::Configuration() : options("quickprobs.exe")
 	options.add<float>("sat3", "sequence weight saturation at consistency", algorithm.consistency.saturation, true);
 	options.add<float>("sat4", "sequence weight saturation at final refinement", algorithm.finalSaturation, true);
 
-	options.add<int64_t>("mem-limit", "memory limit", hardware.memoryLimitMb, true);
+	options.add<int64_t>("mem-limit", "memory limit", hardware.memoryLimitMb, false);
 	
 	options.add<string>("ref-type", "random/column", algorithm.refinement.type.toString(), true);
 	options.add<string>("ref-acceptance", "acceptance criterion in refinement", "length", true);
@@ -140,7 +140,7 @@ void Configuration::setDefaults()
 	hardware.refNumThreads = 0;
 	hardware.deviceNum = -1;
 	hardware.platformNum = -1;
-	hardware.memoryLimitMb = 30e3;
+	hardware.memoryLimitMb = 55e3;
 
 	// optimisation parameters
 	optimisation.useDoublePartition = true;
