@@ -317,8 +317,8 @@ void quickprobs::Configuration::setType(quickprobs::AlignmentType type)
 		hmm.gapOpen[1] = 0.008008334786f;
 		hmm.gapExtend[0] = 0.3965826333f;
 		hmm.gapExtend[1] = 0.8988758326f;
-		//hmm.name = "NucleotideHmmGTR5";
-		hmm.name = "ProteinHmm5";
+		hmm.name = "NucleotideHmmGTR5";
+		//hmm.name = "ProteinHmm5";
 	}
 }
 
