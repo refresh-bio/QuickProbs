@@ -21,6 +21,7 @@ namespace quickprobs
 			std::shared_ptr<ConstructionStage> constructor) : IAlgorithmStage(config), constructor(constructor) {}
 
 		virtual std::unique_ptr<MultiSequence> operator()(
+			const GuideTree& tree,
 			const float *seqsWeights,
 			const Array<float>& distances,
 			const Array<SparseMatrixType*> &sparseMatrices,
@@ -48,6 +49,7 @@ namespace quickprobs
 		virtual bool finalise() { return true; }
 
 		virtual std::unique_ptr<MultiSequence> refine(
+			const GuideTree& tree,
 			const float *seqsWeights,
 			const Array<float>& distances,
 			const Array<SparseMatrixType*> &sparseMatrices,
@@ -56,6 +58,7 @@ namespace quickprobs
 			int depth);
 
 		virtual void split(
+			const GuideTree& tree,
 			const MultiSequence& alignment,
 			std::set<int>& groupOne,
 			std::set<int>& groupTwo) = 0;

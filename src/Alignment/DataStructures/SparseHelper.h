@@ -9,6 +9,8 @@ class SparseHelper {
 public:
 	
 	static ::size_t totalElements(Array<SparseMatrixType*>& matrices);
+	static double sumOfElements(Array<SparseMatrixType*>& matrices);
+	static double sumOfElements(SparseMatrixType& matrix);
 
 	static void getHistogram(SparseMatrixType& matrix, std::map<int,int>& histogram);
 

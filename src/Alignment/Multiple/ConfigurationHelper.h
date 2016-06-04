@@ -1,6 +1,32 @@
 #pragma once
 #include<stdexcept>
 
+class TreeKind {
+public:
+	enum Enumeration {UPGMA, SingleLinkage, Chained};
+	TreeKind() {}
+	TreeKind(std::string s) {
+		if (s == "upgma") {  value = UPGMA; }
+		else if (s == "slink") { value = SingleLinkage; }
+		else if (s == "chained") { value = Chained; }
+		else { throw std::runtime_error("Illegal TreeKind!"); } 
+	}
+
+	std::string toString() {
+		switch (value) {
+		case UPGMA: return "upgma";
+		case SingleLinkage: return "slink";
+		case Chained: return "chained";
+		}
+	}
+
+	bool operator==(TreeKind::Enumeration ref) { return value == ref; }
+	TreeKind& operator=(TreeKind::Enumeration ref) { value = ref; return *this; }
+
+protected:
+	Enumeration value;
+};
+
 
 class SelectivityFunction
 {
@@ -156,18 +182,20 @@ protected:
 class RefinementType 
 {
 public:
-	enum Enumeration {Random, Column};
+	enum Enumeration {Random, Column, Tree};
 
 	RefinementType() {}
 	RefinementType(std::string s) {
 		if (s == "random") { value = Random; }
 		else if (s == "column") { value = Column; }
+		else if (s == "tree") { value = Tree; }
 	}
 
 	std::string toString() {
 		switch (value) {
 			case Random: return "random";
 			case Column: return "column";
+			case Tree: return "tree";
 		}
 	}
 

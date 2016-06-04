@@ -1,5 +1,6 @@
 #pragma once
 #include "IAlgorithmStage.h"
+#include "Selectivity.h"
 #include "Alignment/DataStructures/SparseMatrixType.h"
 
 #include "Common/Array.h"
@@ -24,6 +25,8 @@ public:
 		Array<SparseMatrixType*>& sparseMatrices);
 
 protected:
+	Selectivity selectivity;
+
 	int iterations;
 	float selfweight;
 	

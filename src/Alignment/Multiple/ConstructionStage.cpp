@@ -20,10 +20,10 @@ std::unique_ptr<quickprobs::MultiSequence> ConstructionStage::operator()(
 	TIMER_START(timer);
 	
 	LOG_NORMAL << "Final alignment with OpenMP using " << model.getNumThreads() << " threads..." << endl;
-	
 	auto out = run(seqsWeights, distances, tree, sequences, sparseMatrices, model);
 
-	TIMER_STOP_SAVE(timer, statistics["time.4-1-progressive construction"]);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.4-1-progressive construction", timer.seconds());
 
 	return out;
 }

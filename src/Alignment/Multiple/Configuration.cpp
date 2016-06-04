@@ -36,7 +36,7 @@ Configuration::Configuration() : options("quickprobs.exe")
 	options.add<float>("cutoff", "", algorithm.posteriorCutoff, true);
 	options.add<float>("hmm-weight", "", hmm.weight, true);
 	options.add<string>("partition-matrix", "", partition.matrix, true);
-	options.addSwitch("degenerate-tree", "", true);
+	options.add<string>("tree", "guide tree kind", algorithm.treeKind.toString(), true);
 	options.add<int>("small-limit", "", algorithm.smallLimit, true);
 
 	options.add<int>("con-postprocess,f", "", algorithm.consistency.numFilterings, true);
@@ -53,7 +53,7 @@ Configuration::Configuration() : options("quickprobs.exe")
 
 	options.add<int64_t>("mem-limit", "memory limit", hardware.memoryLimitMb, false);
 	
-	options.add<string>("ref-type", "random/column", algorithm.refinement.type.toString(), true);
+	options.add<string>("ref-type", "random/column/tree", algorithm.refinement.type.toString(), true);
 	options.add<string>("ref-acceptance", "acceptance criterion in refinement", "length", true);
 	options.add<float>("ref-fraction", "column fraction to be used in refinement", true);
 	options.add<int>("ref-depth", "refinement recursion depth", true);
@@ -62,15 +62,15 @@ Configuration::Configuration() : options("quickprobs.exe")
 	options.add<int>("ref-seed", "refinement RNG seed", 0, true);
 	options.add<int>("ref-threads", "refinement threads", 0, true);
 
-	options.addSwitch("kernel-profiling", "low level kernel profiling", true);
-	options.addSwitch("precise-math", "use precise math", true);
-	options.addSwitch("double-partition", "use double precision instead of float in partition part", true);
-	options.addSwitch("taylor-hmm", "use taylor expansion in HMM part", true);
-	options.addSwitch("unrolled-hmm", "use unrolling in HMM part", true);
-	options.addSwitch("divided-hmm", "divide HMM kernels", true);
-	options.addSwitch("local-hmm-params", "HMM parameters in local memory", true);
-	options.addSwitch("local-partition-params", "partition function parameters in local memory", true);
-	
+	options.add<bool>("kernel-profiling", "low level kernel profiling", true);
+	options.add<bool>("precise-math", "use precise math", true);
+	options.add<bool>("double-partition", "use double precision instead of float in partition part", true);
+	options.add<bool>("taylor-hmm", "use taylor expansion in HMM part", true);
+	options.add<bool>("unrolled-hmm", "use unrolling in HMM part", true);
+	options.add<bool>("divided-hmm", "divide HMM kernels", true);
+	options.add<bool>("local-hmm-params", "HMM parameters in local memory", true);
+	options.add<bool>("local-partition-params", "partition function parameters in local memory", true);
+	options.add<float>("gpu-mem-factor", "", 1.0, true);
 }
 
 void Configuration::setDefaults()
@@ -88,7 +88,7 @@ void Configuration::setDefaults()
 	hmm.weight = 0.5f;
 	partition.matrix = "Vtml200";
 
-	algorithm.degenerateTree = false;
+	algorithm.treeKind = TreeKind::UPGMA;
 	algorithm.posteriorCutoff = 0.01f;
 
 	algorithm.consistency.itertions = -1;
@@ -107,7 +107,7 @@ void Configuration::setDefaults()
 
 	
 	algorithm.consistency.selfweight = -1.0;
-	algorithm.consistency.smallSelfweight = 1.0;
+	algorithm.consistency.smallSelfweight = 3.0;
 	algorithm.consistency.largeSelfweight = 3.0;
 	algorithm.consistency.selfweightThreshold = 200;
 
@@ -119,7 +119,7 @@ void Configuration::setDefaults()
 	algorithm.refinement.type = RefinementType::Column;
 	algorithm.refinement.iterations = -1;
 	algorithm.refinement.smallIterations = 30;
-	algorithm.refinement.largeIterations = 100;
+	algorithm.refinement.largeIterations = 200;
 	algorithm.refinement.smallLargeThreshold = 200;
 	
 	algorithm.refinement.columnFraction = 1.0;
@@ -141,6 +141,7 @@ void Configuration::setDefaults()
 	hardware.deviceNum = -1;
 	hardware.platformNum = -1;
 	hardware.memoryLimitMb = 55e3;
+	hardware.gpuMemFactor = 1.0f;
 
 	// optimisation parameters
 	optimisation.useDoublePartition = true;
@@ -149,7 +150,7 @@ void Configuration::setDefaults()
 	optimisation.localPartitionParams = false;
 	
 	optimisation.usePreciseMath = false;
-	optimisation.useTaylorHmm = false;
+	optimisation.useTaylorHmm = true;
 	optimisation.kernelProfiling = false;
 	optimisation.useUnrolledHmm = false;
 }
@@ -170,7 +171,6 @@ bool Configuration::parse(int argc, char** argv)
 		options.get("cutoff", algorithm.posteriorCutoff);
 		options.get("hmm-weight", hmm.weight);
 		options.get("partition-matrix", partition.matrix);
-		options.get("degenerate-tree", algorithm.degenerateTree);
 		options.get("small-limit", algorithm.smallLimit);
 
 		// algorithm parameters
@@ -221,6 +221,9 @@ bool Configuration::parse(int argc, char** argv)
 		algorithm.consistency.filter = SelectivityFilter(t);
 		options.get("sector-copy", t);
 		algorithm.consistency.copy = SectorCopy(t);
+		options.get("tree", t);
+		algorithm.treeKind = TreeKind(t);
+
 
 		options.get("sat3", algorithm.consistency.saturation);
 		options.get("sat4", algorithm.finalSaturation);
@@ -253,13 +256,14 @@ bool Configuration::parse(int argc, char** argv)
 		// optimisation parameters
 		//options.get("kernel-profiling", optimisation.kernelProfiling);
 		options.get("precise-math", optimisation.usePreciseMath);
-		//options.get("taylor-hmm", optimisation.useTaylorHmm);
+		options.get("taylor-hmm", optimisation.useTaylorHmm);
 		//options.get("unrolled-hmm", optimisation.useUnrolledHmm);
 		options.get("divided-hmm", optimisation.divideHmmKernels);
 	//	options.get("double-partition", optimisation.useDoublePartition);
 		options.get("local-hmm-params", optimisation.localHmmParams);
 		options.get("local-partition-params", optimisation.localPartitionParams);
 		options.get("ref-threads", hardware.refNumThreads);
+		options.get("gpu-mem-factor", hardware.gpuMemFactor);
 	}
 	catch (std::runtime_error& error) {
 		return false;
@@ -334,7 +338,8 @@ std::string quickprobs::Configuration::toString()
 		<< "enableAlignOrder=" << io.enableAlignOrder << endl;
 
 	ss << endl << "HARDWARE:" << endl
-		<< "memoryLimitMb=" << hardware.memoryLimitMb << endl;
+		<< "memoryLimitMb=" << hardware.memoryLimitMb << endl
+		<< "gpuMemFactor=" << hardware.gpuMemFactor << endl; 
 
 	ss << endl << "Algorithm:" << endl
 		<< "partition.matrix=" << partition.matrix << endl
@@ -342,7 +347,7 @@ std::string quickprobs::Configuration::toString()
 		<< "partition.gapExtend=" << partition.gapExtend << endl
 		<< "partition.temperature=" << partition.temperature << endl
 		<< "hmm.weight=" << hmm.weight << endl
-		<< "degenerateTree=" << algorithm.degenerateTree << endl
+		<< "degenerateTree=" << algorithm.treeKind.toString() << endl
 		<< "consistency.itertions=" << algorithm.consistency.itertions << endl
 		<< "consistency.numFilterings=" << algorithm.consistency.numFilterings << endl
 		<< "consistency.selectivity=" << algorithm.consistency.selectivity << endl
@@ -357,8 +362,6 @@ std::string quickprobs::Configuration::toString()
 		<< "finalSaturation=" << algorithm.finalSaturation << endl
 		<< "posteriorCutoff=" << algorithm.posteriorCutoff << endl
 		<< "smallSeqlimit=" << algorithm.smallLimit << endl
-	//	<< "qualityFraction=" << algorithm.qualityFraction << endl
-	//	<< "qualityMode=" << algorithm.qualityMode << endl
 		<< "refinement.type=" << algorithm.refinement.type.toString() << endl
 		<< "refinement.iterations=" << algorithm.refinement.iterations << endl
 		<< "refinement.columnFraction=" << algorithm.refinement.columnFraction << endl
@@ -368,12 +371,13 @@ std::string quickprobs::Configuration::toString()
 
 	ss << endl << "Optimisation:" << endl 
 	//	<< "kernelProfiling=" << optimisation.kernelProfiling << endl
-	//	<< "usePreciseMath=" << optimisation.usePreciseMath << endl
-	//	<< "useTaylorHmm=" << optimisation.useTaylorHmm << endl
+		<< "usePreciseMath=" << optimisation.usePreciseMath << endl
+		<< "useTaylorHmm=" << optimisation.useTaylorHmm << endl
 		<< "divideHmmKernels=" << optimisation.divideHmmKernels << endl
 		<< "useDoublePartition=" << optimisation.useDoublePartition << endl
 		<< "localHmmParams=" << optimisation.localHmmParams << endl
 		<< "localPartitionParams=" << optimisation.localPartitionParams << endl;
+	
 
 	return ss.str();
 }

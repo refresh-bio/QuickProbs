@@ -31,7 +31,7 @@ public:
 	// algorithm parameters
 	struct Algorithm {
 		float posteriorCutoff;
-		bool degenerateTree;
+		TreeKind treeKind;
 		int smallLimit;
 		
 		struct Consistency {
@@ -107,6 +107,7 @@ public:
 		int platformNum;
 		int deviceNum;
 		int64_t memoryLimitMb;
+		float gpuMemFactor;
 	} hardware;
 	
 	struct {

@@ -37,7 +37,6 @@ bool quickprobs::ScoringRefinement::prepare(
 	int hi = std::min(std::max(columnsUsed, config->algorithm.refinement.iterations), (int)columnScores.size());
 
 	if (hi > 0) {
-		distribution = std::uniform_int_distribution<int> (0, hi - 1);
 		return true;
 	}
 

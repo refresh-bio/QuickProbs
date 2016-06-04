@@ -75,7 +75,9 @@ local			struct cell_type* Sxz_elements)
 		a = distances[0 * schedule.numSeqs + 0];
 		b = distances[1 * schedule.numSeqs + 1];
 
-		wx_wy = (seqsWeights[x] + seqsWeights[y]) * distances[schedule.numSeqs * schedule.numSeqs - 1]; // multiply by selfweight
+		// calculate adjusted selfweight sw = 1 + (sw - 1) * acceptedFraction
+		wx_wy = 1.0f + (distances[schedule.numSeqs * schedule.numSeqs - 1] - 1.0f) * (float)tasks[taskId].acceptedCount / a;
+		wx_wy *= seqsWeights[x] + seqsWeights[y];
 	} 
 	
 	barrier(CLK_LOCAL_MEM_FENCE);

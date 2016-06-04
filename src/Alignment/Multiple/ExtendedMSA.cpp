@@ -85,8 +85,8 @@ void ExtendedMSA::operator()(std::string inputFile, std::string outputFile)
 	LOG_NORMAL << "Loading sequence file: " << inputFile << "...";
 	sequences->LoadMFA(inputFile, true);
 	LOG_NORMAL << "done!" << endl;
-	
-	TIMER_STOP_SAVE(timer, statistics["time.0.2-sequence loading"]);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.0.2-sequence loading", TIMER_SECONDS(timer));
 
 	// now, we can perform the alignments and write them out
 	LOG_NORMAL << "Performing alignment..." << endl;
@@ -101,7 +101,8 @@ void ExtendedMSA::operator()(std::string inputFile, std::string outputFile)
 		alignment->WriteMFA(*alignOutFile);
 	}
 	LOG_NORMAL << "Alignment finished!" << endl;
-	TIMER_STOP_SAVE(timer, statistics["time.6-result storing"]);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.6-result storing", TIMER_SECONDS(timer));
 
 	//release resources
 	delete sequences;
@@ -154,8 +155,9 @@ std::unique_ptr<quickprobs::MultiSequence> ExtendedMSA::doAlign(quickprobs::Mult
 		}
 	}
 
-	TIMER_STOP_SAVE(totalTimer, statistics["time.stages-1 to 5"]);
-	statistics["memory.peak allocated MB"] = MemoryTools::processPeakVirtual() / 1e6;
+	TIMER_STOP(totalTimer);
+	STATS_WRITE("time.stages-1 to 5", totalTimer.seconds());
+	STATS_WRITE("memory.peak allocated MB", (double)MemoryTools::processPeakVirtual() / 1e6);
 
 	computeDatasetStatistics(*sequences, tree->getWeights().data());
 

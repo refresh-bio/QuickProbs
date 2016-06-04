@@ -63,6 +63,7 @@ struct RelaxationTask
 {
 	unsigned short i;	// first sequence index
 	unsigned short j;	// second sequence index
-	int seed;			// random number generator seed
+	unsigned short seed;			// random number generator seed
+	unsigned short acceptedCount;	// number of sequences accepted by selectivity
 };
 

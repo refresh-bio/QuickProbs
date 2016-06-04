@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <numeric>
 #include <iterator>
-#include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
 
 #include "KernelFactory.h"
@@ -39,14 +38,14 @@ std::unique_ptr<clex::Kernel> KernelFactory::create(
 {
 	// generate a key
 	
-	std::string key = openCl->mainDevice->info->deviceName + kernelName + boost::lexical_cast<std::string, bool>(this->fastMath);
+	std::string key = openCl->mainDevice->info->deviceName + kernelName + std::to_string(this->fastMath);
 	key = accumulate( defines.begin(), defines.end(), key );
 	
 	// if prototype with given key does not exists...
 //	if (prototypes.find(key) == prototypes.end()) {
 
 		auto numericKey =  std::hash<std::string>()(key);
-		std::string binaryFilename = boost::lexical_cast<std::string, ::size_t>(numericKey) + ".bin";
+		std::string binaryFilename = std::to_string(numericKey) + ".bin";
 		std::unique_ptr<cl::Program> program;
 		bool binaryExists = boost::filesystem::exists(binaryFilename);
 		// fixme:
@@ -59,8 +58,10 @@ std::unique_ptr<clex::Kernel> KernelFactory::create(
 		if (openCl->mainDevice->info->vendor == clex::AMD && binaryExists) {
 			LOG_DEBUG << "Loading kernel: " << kernelName << "...";
 			program = loadProgram(binaryFilename, defines, maxRegisters);
-			LOG_DEBUG << "OK";
-		} else {
+			LOG_DEBUG << (program != nullptr ? "OK" : "FAILED") << endl;
+		} 
+		
+		if (program == nullptr) {
 			LOG_DEBUG << "Compiling kernel: " << kernelName << "...";
 
 			program = loadProgram(identifiers, defines, maxRegisters);
@@ -204,9 +205,12 @@ std::unique_ptr<cl::Program> KernelFactory::loadProgram(
 	std::vector<cl::Device> devices(1, openCl->mainDevice->device);
 
 	auto program = std::unique_ptr<cl::Program>(new cl::Program(*openCl->context, devices, binaries, &stats, &code));
-	clCall(code);
-
-	compileProgram(*program, defines, maxRegisters);
+	
+	if (code == CL_SUCCESS) {
+		compileProgram(*program, defines, maxRegisters);
+	} else {
+		program = nullptr;
+	}
 
 	delete [] buffer;
 	return program;
@@ -241,7 +245,7 @@ void KernelFactory::compileProgram(
 		options.push_back("-cl-nv-verbose");
 
 		if (maxRegisters > 0) {
-			std::string option = "-cl-nv-maxrregcount=" + boost::lexical_cast<std::string>(maxRegisters);
+			std::string option = "-cl-nv-maxrregcount=" + std::to_string(maxRegisters);
 			options.push_back(option);
 		}
 	}

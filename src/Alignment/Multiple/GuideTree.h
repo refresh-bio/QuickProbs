@@ -1,12 +1,3 @@
-/***********************************************
-* # Copyright 2009-2010. Liu Yongchao
-* # Contact: Liu Yongchao, School of Computer Engineering,
-* #			 Nanyang Technological University.
-* # Emails:	 liuy0039@ntu.edu.sg; nkcslyc@hotmail.com
-* #
-* # GPL version 3.0 applies.
-* #
-* ************************************************/
 #pragma once
 #include <vector>
 #include "Node.h"
@@ -34,6 +25,7 @@ public:
 	const Node* getLeafs() const { return leafs; }
 	
 	//get the root of the tree
+	const Node* getRoot() const { return this->root;}
 	Node* getRoot() { return this->root;}
 
 	std::vector<float>& getWeights() { return weights; }
@@ -57,8 +49,6 @@ protected:
 	Node* leafs;
 	
 	std::vector<float> weights;
-
-	Array<float> distances;
 
 	//all the tree nodes
 	std::vector<Node> nodes;

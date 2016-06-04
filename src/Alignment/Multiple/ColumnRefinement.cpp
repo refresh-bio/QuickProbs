@@ -16,6 +16,7 @@ using namespace quickprobs;
 
 
 std::unique_ptr<MultiSequence> quickprobs::ColumnRefinement::refine(
+	const GuideTree& tree,
 	const float *seqsWeights, 
 	const Array<float>& distances, 
 	const Array<SparseMatrixType*> &sparseMatrices, 
@@ -24,7 +25,7 @@ std::unique_ptr<MultiSequence> quickprobs::ColumnRefinement::refine(
 	int depth)
 {
 	std::set<int> groupOne, groupTwo;
-	split(*alignment, groupOne, groupTwo);
+	split(tree, *alignment, groupOne, groupTwo);
 
 	if (groupOne.size() > 0 && groupTwo.size() > 0) {
 		auto profileOne = alignment->extractSubset(groupOne); 
@@ -33,8 +34,8 @@ std::unique_ptr<MultiSequence> quickprobs::ColumnRefinement::refine(
 		// refine recursively
 		int maxDepth = std::min(config->algorithm.refinement.maxDepth, (int)mathex::log2(distances.size()));
 		if (depth < maxDepth) {
-			profileOne = refine(seqsWeights, distances, sparseMatrices, model, std::move(profileOne), depth + 1);
-			profileTwo = refine(seqsWeights, distances, sparseMatrices, model, std::move(profileTwo), depth + 1);
+			profileOne = refine(tree, seqsWeights, distances, sparseMatrices, model, std::move(profileOne), depth + 1);
+			profileTwo = refine(tree, seqsWeights, distances, sparseMatrices, model, std::move(profileTwo), depth + 1);
 		}
 
 		// resize posterior buffer when necessary
@@ -63,8 +64,80 @@ bool quickprobs::ColumnRefinement::initialise(
 	const MultiSequence &alignment)
 {
 	int numSeqs = alignment.count();
-	columnScores.resize(alignment.length(), std::pair<int,float>(0,0));
 	posterior.resize((alignment.length() + 1) * (alignment.length() + 1));
+
+	updateColumnScores(alignment, columnScores);
+
+	int columnsUsed = (float)columnScores.size() * std::abs(config->algorithm.refinement.columnFraction);
+
+	if (config->io.enableVerbose) {
+		LOG_DEBUG << "Column set:" << std::endl;
+		for (int i = 0; i < std::min((::size_t)columnsUsed, columnScores.size()); ++i) {
+			LOG_DEBUG << "(" << columnScores[i].first << "," << columnScores[i].second << "), ";
+		}
+		LOG_DEBUG << std::endl;
+	}
+
+	int hi = std::min(std::max(columnsUsed, config->algorithm.refinement.iterations), (int)columnScores.size());
+	return hi > 0;
+}
+
+
+bool quickprobs::ColumnRefinement::finalise() {
+	std::size_t h = 0;
+	double sum = 0.0;
+	for (float e : posterior) {
+		h = h ^ std::hash<float>()(e);
+		sum += e;
+	}
+	
+	STATS_WRITE("zhash.posterior", h);
+	STATS_WRITE("zsum.posterior", sum);
+	return true;
+}
+
+void quickprobs::ColumnRefinement::split(
+	const GuideTree& tree,
+	const MultiSequence& alignment,
+	std::set<int>& groupOne,
+	std::set<int>& groupTwo)
+{
+	int numSeqs = alignment.count();
+	updateColumnScores(alignment, columnScores);
+
+	int columnsUsed = (float)columnScores.size() * std::abs(config->algorithm.refinement.columnFraction);
+	int lo, hi;
+
+	if (config->algorithm.refinement.columnFraction > 0) {
+		lo = 0;
+		hi = std::min(std::max(columnsUsed, config->algorithm.refinement.iterations), (int)columnScores.size());
+	} else {
+		lo = std::max((size_t)0, columnScores.size() - std::max(columnsUsed, config->algorithm.refinement.iterations));
+		hi = columnScores.size();
+	}
+	
+	if (hi > 0) {
+		det_uniform_int_distribution<int> distribution(lo, hi - 1);
+	
+		int rnd = distribution(this->engine);
+		LOG_DEBUG << rnd << "(" << alignment.length()-1 << "), ";
+		int divisionColumn = std::min((size_t)this->columnScores[rnd].first, alignment.length() - 1);
+
+		for (int i = 0; i < numSeqs; ++i) {
+			if (alignment.GetSequence(i)->GetPosition(divisionColumn + 1) == '-') {
+				groupOne.insert(i);
+			} else {
+				groupTwo.insert(i);
+			}
+		}
+	} 
+}
+
+void quickprobs::ColumnRefinement::updateColumnScores(
+	const MultiSequence &alignment, std::vector<std::pair<int,float>> &columnScores)
+{
+	int numSeqs = alignment.count();
+	columnScores.resize(alignment.length(), std::pair<int,float>(0,0));
 
 	// get non terminal segment
 	std::vector<std::pair<int, int>> nonTerminalFragments(alignment.count());
@@ -84,7 +157,7 @@ bool quickprobs::ColumnRefinement::initialise(
 		nonTerminalFragments[i].first = begin;
 		nonTerminalFragments[i].second = end;
 	}
-	
+
 	// iterate over columns
 	for (int c = 0; c < columnScores.size(); ++c) {
 		// iterate over sequences
@@ -107,48 +180,5 @@ bool quickprobs::ColumnRefinement::initialise(
 		return e.second == 0;
 	});
 	columnScores.erase(it, columnScores.end());
-	int columnsUsed = (float)columnScores.size() * config->algorithm.refinement.columnFraction;
-
-	int hi = std::min(std::max(columnsUsed, config->algorithm.refinement.iterations), (int)columnScores.size());
-
-	if (hi > 0) {
-		distribution = std::uniform_int_distribution<int> (0, hi - 1);
-		return true;
-	}
-
-	return false;
 }
-
-
-bool quickprobs::ColumnRefinement::finalise() {
-	std::size_t h = 0;
-	double sum = 0.0;
-	for (float e : posterior) {
-		h = h ^ std::hash<float>()(e);
-		sum += e;
-	}
-	
-	statistics["zhash.posterior"] = h;
-	statistics["zsum.posterior"] = sum;
-	return true;
-}
-
-void quickprobs::ColumnRefinement::split(
-	const MultiSequence& alignment,
-	std::set<int>& groupOne,
-	std::set<int>& groupTwo)
-{
-	int divisionColumn = std::min((size_t)this->columnScores[this->distribution(this->engine)].first, alignment.length() - 1);
-
-	int numSeqs = alignment.count();
-
-	for (int i = 0; i < numSeqs; ++i) {
-		if (alignment.GetSequence(i)->GetPosition(divisionColumn + 1) == '-') {
-			groupOne.insert(i);
-		} else {
-			groupTwo.insert(i);
-		}
-	}
-}
-
 

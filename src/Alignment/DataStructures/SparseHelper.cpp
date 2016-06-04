@@ -10,15 +10,39 @@
 ::size_t SparseHelper::totalElements(Array<SparseMatrixType*>& matrices)
 {
 	::size_t elems = 0; 
-
 	for (int i = 0; i < matrices.size(); ++i) {
 		for (int j = i + 1; j < matrices.size(); ++j) {
 			elems += matrices[i][j]->getNumCells();
 		}
 	}
-
 	return elems;
 }
+
+
+double SparseHelper::sumOfElements(Array<SparseMatrixType*>& matrices)
+{
+	double sum = 0.0;
+	::size_t elems = 0; 
+	for (int i = 0; i < matrices.size(); ++i) {
+		for (int j = i + 1; j < matrices.size(); ++j) {
+			sum += sumOfElements(*matrices[i][j]);
+		}
+	}
+	return sum;
+}
+
+double SparseHelper::sumOfElements(SparseMatrixType& matrix)
+{
+	double sum = 0.0;
+	for (int i = 1; i < matrix.getHeight(); ++i) {
+		for (int j = 0; j < matrix.getRowSize(i); ++j) {
+			sum += matrix.getValue(i, j);
+		}
+	}
+	return sum;
+}
+
+
 
 void SparseHelper::filterLocal( 
 	Array<SparseMatrixType*>& matrices, 

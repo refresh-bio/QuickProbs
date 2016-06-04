@@ -1,15 +1,15 @@
 #include <memory>
 #include <algorithm>
 #include <omp.h>
-#include <boost/lexical_cast.hpp>
 
 #include "Hardware/Kernel.h"
 #include "KernelRepository/KernelFactory.h"
 #include "Common/MemoryTools.h"
 #include "Common/Log.h"
 #include "Common/rank.h"
+#include "Common/deterministic_random.h"
 
-#include "SingleLinkage.h"
+#include "SLinkTree.h"
 #include "ClusterTree.h"
 #include "PhylipTree.h"
 #include "QuickPosteriorStage.h"
@@ -17,6 +17,7 @@
 #include "RandomRefinement.h"
 #include "ColumnRefinement.h"
 #include "ScoringRefinement.h"
+#include "TreeRefinement.h"
 #include "KernelMSA.h"
 #include "ParallelProbabilisticModel.h"
 
@@ -35,7 +36,7 @@ KernelMSA::KernelMSA(std::shared_ptr<clex::OpenCL> cl, std::shared_ptr<Configura
 	TIMER_START(timer);
 	
 	this->config = config;
-	this->version =  boost::lexical_cast<std::string>(QUICKPROBS_VERSION);
+	this->version =  std::to_string(QUICKPROBS_VERSION);
 
 	int numCores = omp_get_num_procs();
 	LOG_NORMAL << "Detected " << numCores << " CPU cores" << endl;
@@ -66,13 +67,16 @@ KernelMSA::KernelMSA(std::shared_ptr<clex::OpenCL> cl, std::shared_ptr<Configura
 	
 	if (config->algorithm.refinement.type == RefinementType::Column) {
 		refinementStage = std::shared_ptr<RefinementBase>(new ColumnRefinement(config, constructionStage));
+	} else if (config->algorithm.refinement.type == RefinementType::Tree) {
+		refinementStage = std::shared_ptr<RefinementBase>(new TreeRefinement(config, constructionStage));
 	} else {
 		refinementStage = std::shared_ptr<RefinementBase>(new RandomRefinement(config, constructionStage));
 	}
 
 	refinementStage->registerObserver(this);
 
-	TIMER_STOP_SAVE(timer, statistics["time.0.1-initialisation"]);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.0.1-initialisation", timer.seconds());
 }
 
 
@@ -96,12 +100,17 @@ std::unique_ptr<quickprobs::MultiSequence> quickprobs::KernelMSA::doAlign(MultiS
 	// all pairwise steps are encapsulated in a separate function now
 	posteriorStage->operator()(*set, distances, sparseMatrices);
 	
-	if (config->algorithm.degenerateTree) {
-		degenerateDistances(distances);
-	}
-
 	// create the guide tree
-	auto tree = std::shared_ptr<GuideTree>(new ClusterTree(distances));
+	std::shared_ptr<GuideTree> tree;
+	if (config->algorithm.treeKind == TreeKind::Chained) {
+		degenerateDistances(distances);
+		tree = std::shared_ptr<GuideTree>(new ClusterTree(distances));
+	} else if (config->algorithm.treeKind == TreeKind::UPGMA) {
+		tree = std::shared_ptr<GuideTree>(new ClusterTree(distances));
+	} else {
+		tree = std::shared_ptr<GuideTree>(new SLinkTree(distances));
+	}
+	
 	(*tree)();
 	
 	// perform the consistency transformation desired number of times
@@ -120,7 +129,7 @@ std::unique_ptr<quickprobs::MultiSequence> quickprobs::KernelMSA::doAlign(MultiS
 		
 		std::vector<int> seedIds(config->algorithm.consistency.selectivity);
 		std::mt19937 eng;
-		std::uniform_int_distribution<int> dist(0, numSeqs - 1);
+		det_uniform_int_distribution<int> dist(0, numSeqs - 1);
 		std::generate(seedIds.begin(), seedIds.end(), [&eng, &dist]()->float {
 			return dist(eng);
 		});
@@ -194,8 +203,9 @@ std::unique_ptr<quickprobs::MultiSequence> quickprobs::KernelMSA::doAlign(MultiS
 	
 	omp_set_num_threads(model->getNumThreads());
 	auto alignment = constructionStage->operator()(weights.data(), consistencyDistances, tree.get(), *sequences, sparseMatrices, *model);		
-	alignment = refinementStage->operator()(weights.data(), consistencyDistances, sparseMatrices, *model, std::move(alignment));
-	TIMER_STOP_SAVE(timer, statistics["time.4-final alignment"]);
+	alignment = refinementStage->operator()(*tree, weights.data(), consistencyDistances, sparseMatrices, *model, std::move(alignment));
+	TIMER_STOP(timer);
+	STATS_WRITE("time.4-final alignment", TIMER_SECONDS(timer));
 
 	// build annotation
 	if (config->io.enableAnnotation) {
@@ -211,11 +221,15 @@ std::unique_ptr<quickprobs::MultiSequence> quickprobs::KernelMSA::doAlign(MultiS
 			delete sparseMatrices[b][a];
 		}
 	}
-	TIMER_STOP_SAVE(timer, statistics["time.5-delete"]);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.5-delete", TIMER_SECONDS(timer));
+
 	LOG_NORMAL << "ok" << endl;
 
-	TIMER_STOP_SAVE(totalTimer, statistics["time.stages-1 to 5"]);
-	statistics["memory.peak allocated MB"] = MemoryTools::processPeakVirtual() / (1 << 20);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.stages-1 to 5", TIMER_SECONDS(timer));
+
+	STATS_WRITE("memory.peak allocated MB", MemoryTools::processPeakVirtual() / (1 << 20));
 
 	computeDatasetStatistics(*sequences, tree->getWeights().data());
 
@@ -225,8 +239,7 @@ std::unique_ptr<quickprobs::MultiSequence> quickprobs::KernelMSA::doAlign(MultiS
 	this->joinStats(*constructionStage);
 	this->joinStats(*refinementStage);
 	size_t hash = alignment->calculateHash();
-	statistics["zhash"] = hash;
-
+	STATS_WRITE("zhash", hash);
 	LOG_DEBUG << "Hash = " << hash << endl;
 	
 	return alignment;
@@ -271,7 +284,7 @@ void quickprobs::KernelMSA::degenerateDistances(Array<float> &distances)
 void KernelMSA::printWelcome() {
 	 LOG_NORMAL
 		<< "*************************************************************************************" << endl
-		<< "\t QuickProbs " << QUICKPROBS_VERSION << endl 
+		<< "\t QuickProbs " << QUICKPROBS_VERSION << " (" << __DATE__ << ", " << __TIME__ << ")" << endl 
 		<< "\t QuickProbs is a fast and accurate algorithm for multiple sequence alignment" << endl
 		<< "\t suited for GPUs." << endl // It uses novel column-based refinement and selective consistency." << endl
 		<< "\t Authors: Adam Gudys (adam.gudys@polsl.pl) and Sebastian Deorowicz." << endl
@@ -305,7 +318,7 @@ void quickprobs::KernelMSA::buildDistancesHistogram(const Array<float>& distance
 		}
 
 		for (int i = 0; i < histo.size(); ++i) {
-			statistics["histo.distances_" + to_string(borders[i])] = histo[i];
+			STATS_WRITE("histo.distances_" + to_string(borders[i]), histo[i]);
 		}
 	}
 }

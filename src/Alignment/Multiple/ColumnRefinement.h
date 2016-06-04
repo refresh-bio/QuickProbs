@@ -1,5 +1,6 @@
 #pragma once
 #include "RefinementBase.h"
+#include "Common/deterministic_random.h"
 
 namespace quickprobs {
 
@@ -19,11 +20,10 @@ protected:
 	
 	std::mt19937 engine;
 
-	std::uniform_int_distribution<int> distribution;
-
 	std::vector<std::pair<int,float>> columnScores;
 
 	virtual std::unique_ptr<MultiSequence> refine(
+		const GuideTree& tree,
 		const float *seqsWeights,
 		const Array<float>& distances,
 		const Array<SparseMatrixType*> &sparseMatrices,
@@ -41,9 +41,12 @@ protected:
 	virtual bool finalise();
 
 	virtual void split(
+		const GuideTree& tree,
 		const MultiSequence& alignment,
 		std::set<int>& groupOne,
 		std::set<int>& groupTwo);
+
+	virtual void updateColumnScores(const MultiSequence &alignment, std::vector<std::pair<int,float>> &columnScores);
 };
 
 }

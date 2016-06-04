@@ -21,8 +21,6 @@ public:
 		std::shared_ptr<Configuration> config);
 
 protected:
-	float filter_a;
-	float filter_b;
 	
 	std::shared_ptr<clex::OpenCL> cl; 
 
@@ -47,14 +45,16 @@ protected:
 	std::vector<std::shared_ptr<RelaxationSector>> generateSectors(
 		const Array<SparseMatrixType*>& sparseMatrices,
 		const ContiguousMultiSequence& sequences,
+		const Array<float>& distances,
 		std::vector<unsigned int>& sparseOffsets,
 		::size_t& maxSectorBytes);
+
+	void printSelectivityHistogram(std::vector<std::shared_ptr<RelaxationSector>> sectors);
 
 	void printDistanceHistogram(Array<float>& distances);
 
 	void printSparseRowsHistogram(Array<SparseMatrixType*>& sparseMatrices);
 
-	void calculateFilterParameters(Configuration::Algorithm::Consistency& config);
 };
 
 };

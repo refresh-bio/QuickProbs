@@ -1,12 +1,3 @@
-/***********************************************
-* # Copyright 2009-2010. Liu Yongchao
-* # Contact: Liu Yongchao, School of Computer Engineering,
-* #			 Nanyang Technological University.
-* # Emails:	 liuy0039@ntu.edu.sg; nkcslyc@hotmail.com
-* #
-* # GPL version 3.0 applies.
-* #
-* ************************************************/
 #include <iostream>
 #include "Common/Timer.h"
 #include "GuideTree.h"
@@ -62,7 +53,8 @@ void GuideTree::operator()()
 	this->build();
 	this->weights = calculateSeqsWeights();
 	
-	TIMER_STOP_SAVE(timer, statistics["time.2-tree construction"]);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.2-tree construction", timer.seconds());
 	int height = std::max_element(leafs, leafs + numSeqs, [](const Node& n1, const Node &n2)->int { 
 		return n1.depth < n2.depth; 
 	})->depth; 

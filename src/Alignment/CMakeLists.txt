@@ -85,6 +85,7 @@ set(MSA_CONSISTENCY_FILES
 	Multiple/RelaxationTask.cpp
 	Multiple/RelaxationSector.cpp
 	Multiple/RelaxationSector.h
+	Multiple/Selectivity.h
 )
 
 set(MSA_FINAL_FILES
@@ -103,7 +104,8 @@ set(MSA_FINAL_FILES
 	Multiple/RandomRefinement.h
 	Multiple/ScoringRefinement.cpp
 	Multiple/ScoringRefinement.h
-
+	Multiple/TreeRefinement.cpp
+	Multiple/TreeRefinement.h
 )
 
 set(MSA_PHYLOGENY_FILES
@@ -117,6 +119,8 @@ set(MSA_PHYLOGENY_FILES
 	Multiple/PhylipTree.h
 	Multiple/PhylipTree.cpp
 	Multiple/TreeGrammar.h
+	Multiple/SLinkTree.cpp
+	Multiple/SLinkTree.h
 )
 
 set(MSA_MAIN_FILES

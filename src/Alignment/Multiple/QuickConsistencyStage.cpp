@@ -1,6 +1,7 @@
 #include "Common/mathex.h"
 #include "Common/Log.h"
 #include "Common/MemoryTools.h"
+#include "Common/deterministic_random.h"
 #include "MemoryPool.h"
 #include "KernelRepository/KernelFactory.h"
 
@@ -12,7 +13,7 @@
 #include <thread>
 #include <cmath>
 #include <omp.h>
-#include <random>
+
 
 using namespace std;
 using namespace quickprobs;
@@ -41,12 +42,12 @@ QuickConsistencyStage::QuickConsistencyStage(
 		config->stripeCount = cl->mainDevice->info->maxWorkgroupSize / config->stripeLength;
 	}
 
-	defines.push_back("POSTERIOR_CUTOFF=" + boost::lexical_cast<std::string>(config->algorithm.posteriorCutoff));
-	defines.push_back("BINS_COUNT=" + boost::lexical_cast<std::string>(config->binsCount));
+	defines.push_back("POSTERIOR_CUTOFF=" + std::to_string(config->algorithm.posteriorCutoff));
+	defines.push_back("BINS_COUNT=" + std::to_string(config->binsCount));
 	
-	defines.push_back("STRIPE_COUNT=" + boost::lexical_cast<std::string>(8));
-	defines.push_back("STRIPE_LENGTH=" + boost::lexical_cast<std::string>(8));
-	defines.push_back("STRIPE_LENGTH_LOG2=" + boost::lexical_cast<std::string>(3));
+	defines.push_back("STRIPE_COUNT=" + std::to_string(8));
+	defines.push_back("STRIPE_LENGTH=" + std::to_string(8));
+	defines.push_back("STRIPE_LENGTH_LOG2=" + std::to_string(3));
 
 	Configuration::Algorithm::Consistency& cnf = config->algorithm.consistency;
 
@@ -79,25 +80,6 @@ QuickConsistencyStage::QuickConsistencyStage(
 		cl, "MultipleConsistency_RelaxOld", files, defines, 8, 8, 0)));
 
 }
-
-
-void QuickConsistencyStage::calculateFilterParameters(Configuration::Algorithm::Consistency& config)
-{
-	if (config.filter == SelectivityFilter::Deterministic) {
-		filter_a = config.selectivity;
-		filter_b = 0;
-	} else if (config.filter == SelectivityFilter::TriangleLowpass) {
-		filter_a = -1;
-		filter_b = sqrt(2.0f * config.selectivity * (-filter_a));
-	} else if (config.filter == SelectivityFilter::TriangleHighpass) {
-		filter_a = 1;
-		filter_b = -1 + sqrt(2.0f * config.selectivity * filter_a);
-	} else if (config.filter == SelectivityFilter::TriangleMidpass) {
-		filter_a = 4 * config.selectivity;
-		filter_b = 0;
-	}
-}
-
 
 /// <summary>
 /// See declaration for all the details.
@@ -147,7 +129,7 @@ void QuickConsistencyStage::doRelaxationGpu(
 	double timeUnpacking = 0;
 	double timeKernel = 0;
 	
-	//printDistanceHistogram(distances);
+//	printDistanceHistogram(distances);
 
 	std::vector<float> weights(seqsWeights, seqsWeights + cms.count());
 
@@ -162,9 +144,8 @@ void QuickConsistencyStage::doRelaxationGpu(
 	
 	std::vector<float> distArray = distances.getData();
 
-	calculateFilterParameters(this->config->algorithm.consistency);
-	distArray[0 * numSeqs + 0] = filter_a;
-	distArray[1 * numSeqs + 1] = filter_b;
+	distArray[0 * numSeqs + 0] = selectivity.filter_a;
+	distArray[1 * numSeqs + 1] = selectivity.filter_b;
 	
 	// selfweight in last element
 	distArray[numSeqs * numSeqs - 1] = selfweight;
@@ -179,7 +160,10 @@ void QuickConsistencyStage::doRelaxationGpu(
 	// prepare waves
 	std::vector<unsigned int> sparseOffsets;
 	::size_t maxSectorBytes;
-	auto sectors = generateSectors(sparseMatrices, cms, sparseOffsets, maxSectorBytes);
+	auto sectors = generateSectors(sparseMatrices, cms, distances, sparseOffsets, maxSectorBytes);
+	
+	//printSelectivityHistogram(sectors);
+	
 	int sectorResolution = sqrt(sectors.size());
 
 	auto maxTasksSector = *max_element(sectors.begin(), sectors.end(),
@@ -446,8 +430,7 @@ void QuickConsistencyStage::doRelaxationGpu(
 	STATS_ADD("time.3-1-task preparation", prepareTimer.seconds());
 	STATS_ADD("time.3-2-relaxation", relaxTimer.seconds());
 	STATS_ADD("time.3-3-sparse unpacking", timeUnpacking);
-	STATS_ADD("time.1-a-kernel processing", timeKernel);
-
+	
 	for (auto& p : pool) { delete [] p; }
 	delete [] outputRawData;
 }
@@ -457,6 +440,7 @@ void QuickConsistencyStage::doRelaxationGpu(
 std::vector<std::shared_ptr<RelaxationSector>> quickprobs::QuickConsistencyStage::generateSectors(
 	const Array<SparseMatrixType*>& sparseMatrices, 
 	const ContiguousMultiSequence& sequences,
+	const Array<float>& distances,
 	std::vector<unsigned int>& sparseOffsets,
 	::size_t& maxSectorBytes)
 {
@@ -477,8 +461,8 @@ std::vector<std::shared_ptr<RelaxationSector>> quickprobs::QuickConsistencyStage
 
 	// sector must fit in sixth of total memory size and half of max alloc size
 	::size_t metaBytes = cl->mainDevice->info->alignUp(sequences.count() * sequences.count() * sizeof(RelaxationTask));
-	::size_t maxAllocBytes = cl->mainDevice->info->maxAllocSize_Corrected;
-	::size_t availableBytes = cl->mainDevice->info->globalMemSize - (clex::Buffer::getTotalBytesAllocated() + metaBytes);
+	::size_t maxAllocBytes = config->hardware.gpuMemFactor * cl->mainDevice->info->maxAllocSize_Corrected;
+	::size_t availableBytes = config->hardware.gpuMemFactor * cl->mainDevice->info->globalMemSize - (clex::Buffer::getTotalBytesAllocated() + metaBytes);
 	::size_t allowedBytes = std::min(availableBytes / 10, maxAllocBytes / 2); 
 	openClSparseMemory = mathex::ceilround(openClSparseMemory, (size_t)cl->mainDevice->info->memAddrAlign);
 	int sectorsCount = mathex::ceildiv(openClSparseMemory, allowedBytes);
@@ -508,7 +492,7 @@ std::vector<std::shared_ptr<RelaxationSector>> quickprobs::QuickConsistencyStage
 
 	do {
 		resolution = (::size_t)ceil(sqrt((float)sectorsCount));
-		sectors = RelaxationSector::generate(sparseMatrices, sequences.sortingMap,  sparseOffsets, resolution);
+		sectors = RelaxationSector::generate(sparseMatrices, sequences.sortingMap, distances, selectivity, sparseOffsets, resolution);
 		maxMemorySector = *max_element(sectors.begin(), sectors.end(),
 			[](std::shared_ptr<RelaxationSector>& w1, std::shared_ptr<RelaxationSector>& w2) -> bool {
 				return w1->getElementsCount() < w2->getElementsCount();
@@ -528,11 +512,48 @@ std::vector<std::shared_ptr<RelaxationSector>> quickprobs::QuickConsistencyStage
 	return sectors;
 }
 
+void quickprobs::QuickConsistencyStage::printSelectivityHistogram(
+	std::vector<std::shared_ptr<RelaxationSector>> sectors)
+{
+	std::vector<std::pair<int,int>> selectivityHisto;
+	selectivityHisto.push_back(std::pair<int,int>(0,0));
+	selectivityHisto.push_back(std::pair<int,int>(1,0));
+	selectivityHisto.push_back(std::pair<int,int>(2,0));
+	selectivityHisto.push_back(std::pair<int,int>(3,0));
+	selectivityHisto.push_back(std::pair<int,int>(5,0));
+	selectivityHisto.push_back(std::pair<int,int>(10,0));
+
+	
+	for (int i = 20; i <= config->algorithm.consistency.selectivity; i += 20) {
+		selectivityHisto.push_back(std::pair<int,int>(i, 0));
+	}
+	selectivityHisto.push_back(make_pair<int, int>(100000, 0));
+	int attempts = 0;
+
+	for (const auto& s: sectors) {
+		for (const auto& t: s->getTasks()) {	
+			auto it = find_if(selectivityHisto.begin(), selectivityHisto.end(), [&t](std::pair<int,int>& bin)->bool {
+				return t.acceptedCount <= bin.first;
+			});	
+
+			++it->second;
+			++attempts;
+		}
+	}
+
+	LOG_DEBUG << endl << "Selectivity histogram(" <<  attempts << ")" << endl;
+	for (auto& bin: selectivityHisto) {
+		LOG_DEBUG << bin.first << ": " << bin.second << endl;
+	}
+
+	getchar();
+}
+
 void quickprobs::QuickConsistencyStage::printDistanceHistogram(Array<float>& distances)
 {
 	int numSeqs = distances.size();
-	std::vector<std::pair<float,int>> distanceHisto(10);
-	std::vector<std::pair<float,int>> pairsHisto(10);
+	std::vector<std::pair<float,int>> distanceHisto(20);
+	std::vector<std::pair<float,int>> pairsHisto(20);
 	//float maxVal = std::numeric_limits<float>::max();
 	float maxVal = (float)numSeqs;
 

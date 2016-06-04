@@ -56,9 +56,10 @@ struct PosteriorTask
 
 struct RelaxationTask
 {
-	cl_ushort i;			// first sequence index
-	cl_ushort j;			// second sequence index
-	cl_int seed;			// seed for random generator
+	cl_ushort i;				// first sequence index
+	cl_ushort j;				// second sequence index
+	cl_ushort seed;				// seed for random generator
+	cl_ushort acceptedCount;	// number of sequences accepted by selectivity
 
 	static ::size_t localBytes(int maxSparseRow, int stripeCount, int stripeLength);
 	static int countMaxSparseLength(int localBytes, int stripeCount, int stripeLength);

@@ -7,13 +7,15 @@
 #include "DataStructures/SparseHelper.h"
 #include "RelaxationSector.h"
 
-#include <random>
+#include "Common/deterministic_random.h"
 
 using namespace quickprobs;
 
 std::vector<std::shared_ptr<RelaxationSector>> RelaxationSector::generate(
 	const Array<SparseMatrixType*>& sparseMatrices,
 	const std::vector<unsigned int>& sortingMap,
+	const Array<float>& distances,
+	const Selectivity& selectivity,
 	std::vector<unsigned int>& sparseOffsets,
 	int sectorResolution)
 {
@@ -25,8 +27,8 @@ std::vector<std::shared_ptr<RelaxationSector>> RelaxationSector::generate(
 	std::vector<std::shared_ptr<RelaxationSector>> sectors(sectorResolution * sectorResolution);
 	
 	std::vector<int> seeds(numSeqs * numSeqs);
-	std::default_random_engine eng;
-	std::uniform_int_distribution<int> dist(0, 65536);
+	std::mt19937 eng;
+	det_uniform_int_distribution<int> dist(0, RND_MAX);
 	std::generate(seeds.begin(), seeds.end(), [&eng, &dist]()->int {
 		return dist(eng);
 	});
@@ -74,6 +76,23 @@ std::vector<std::shared_ptr<RelaxationSector>> RelaxationSector::generate(
 					task->i = i;
 					task->j = j;
 					task->seed = seeds[i * numSeqs + j];
+					task->acceptedCount = 0;
+
+					int seed = task->seed;
+					// check selectivity criterion
+					for (int k = 0; k < distances.size(); ++k) {
+						if (k != i && k != j) {	
+							float d = selectivity.function(distances[i][k], distances[j][k]);
+							seed = parkmiller(seed); // get next random number
+							float v = selectivity.filter(selectivity.filter_a, selectivity.filter_b, d);
+							float w = ((float)seed) * RND_MAX_INV - v;  
+
+							if  (w < 0) {				
+								++task->acceptedCount;
+							} 
+						}
+					}
+
 					++task;
 				}
 					

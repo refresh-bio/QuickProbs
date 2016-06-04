@@ -5,8 +5,8 @@
 #include "DataStructures/SparseMatrixType.h"
 #include "DataStructures/SparseHelper.h"
 
-#include "KernelRepository/Random.cl"
 #include "Common/Log.h"
+#include "Common/deterministic_random.h"
 
 #include "Configuration.h"
 
@@ -14,14 +14,47 @@
 #include <omp.h>
 
 #undef min
-#define filter(a,b,x)			(((x) <= (a)) ? 2.0f : 0)
 
 using namespace std;
 using namespace quickprobs;
 
 ConsistencyStage::ConsistencyStage(std::shared_ptr<Configuration> config) : IAlgorithmStage(config)
 {
+	Configuration::Algorithm::Consistency& cnf = config->algorithm.consistency;
+	
+	if (cnf.function == SelectivityFunction::Sum) {
+		selectivity.function = [](float x,float y)->float { return x+y; };
+	} else if (cnf.function == SelectivityFunction::Min) {
+		selectivity.function = [](float x,float y)->float { return std::min(x,y); };
+	} else if (cnf.function == SelectivityFunction::Max) {
+		selectivity.function = [](float x,float y)->float { return std::max(x,y); };
+	} else if (cnf.function == SelectivityFunction::Avg) {
+		selectivity.function = [](float x,float y)->float { return x + y / 2; };
+	} 
 
+	if (cnf.filter == SelectivityFilter::Deterministic) {
+		selectivity.filter = [](float a, float b, float x)->float{ return (x <= a) ? 2.0f : 0; };
+	} else if (cnf.filter == SelectivityFilter::TriangleLowpass || cnf.filter == SelectivityFilter::TriangleHighpass) {
+		selectivity.filter = [](float a, float b, float x)->float{ return a * x + b; };
+	} else if (cnf.filter == SelectivityFilter::HomographLowpass) {
+		selectivity.filter = [](float a, float b, float x)->float{ return (1 - x) / (a * x + 1); };
+	} else if (cnf.filter == SelectivityFilter::TriangleMidpass) {
+		selectivity.filter = [](float a, float b, float x)->float{ return std::min(a*x, -a*x+a); };
+	}
+
+	if (cnf.filter == SelectivityFilter::Deterministic) {
+		selectivity.filter_a = cnf.selectivity;
+		selectivity.filter_b = 0;
+	} else if (cnf.filter == SelectivityFilter::TriangleLowpass) {
+		selectivity.filter_a = -1;
+		selectivity.filter_b = sqrt(2.0f * cnf.selectivity * (-selectivity.filter_a));
+	} else if (cnf.filter == SelectivityFilter::TriangleHighpass) {
+		selectivity.filter_a = 1;
+		selectivity.filter_b = -1 + sqrt(2.0f * cnf.selectivity * selectivity.filter_a);
+	} else if (cnf.filter == SelectivityFilter::TriangleMidpass) {
+		selectivity.filter_a = 4 * cnf.selectivity;
+		selectivity.filter_b = 0;
+	}
 }
 
 /// <summary>
@@ -36,7 +69,7 @@ void ConsistencyStage::operator()(
 	TIMER_CREATE(timer);
 	TIMER_START(timer);
 
-	this->iterations = config->algorithm.consistency.itertions > 0 ? config->algorithm.consistency.itertions :
+	this->iterations = config->algorithm.consistency.itertions >= 0 ? config->algorithm.consistency.itertions :
 		(set.count() > config->algorithm.consistency.iterationsThreshold ? 
 		config->algorithm.consistency.largeIterations : 
 			config->algorithm.consistency.smallIterations);
@@ -46,22 +79,20 @@ void ConsistencyStage::operator()(
 	this->selfweight = config->algorithm.consistency.selfweight > 0 ? config->algorithm.consistency.selfweight :
 		(set.count() > config->algorithm.consistency.selfweightThreshold ? 
 		config->algorithm.consistency.largeSelfweight : 
-	//	(2.5 / 200.0) * x + 0.5);		
-
-	config->algorithm.consistency.smallSelfweight);
-
-
+		config->algorithm.consistency.smallSelfweight);
 
 	//calculate sequence pairs for openmp model
 	LOG_NORMAL << iterations << " consistency iterations with OpenMP using " << config->hardware.numThreads << " threads (selfweight=" 
 		<< selfweight << ")..." << endl;
 
-
 	run(seqsWeights, set, distances, sparseMatrices);
-	TIMER_STOP_SAVE(timer, statistics["time.3-consistency transformation"]);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.3-consistency transformation", timer.seconds());
 
-	size_t elems = config->io.enableVerbose ? SparseHelper::totalElements(sparseMatrices) : 0;
-	STATS_WRITE("memory.sparse consistency cells", (double)elems);
+	size_t elemsCount = config->io.enableVerbose ? SparseHelper::totalElements(sparseMatrices) : 0;
+	double elemsSum = config->io.enableVerbose ? SparseHelper::sumOfElements(sparseMatrices) : 0;
+	STATS_WRITE("memory.sparse consistency cells", elemsCount);
+	STATS_WRITE("memory.sparse consistency sum", elemsSum);
 }
 
 /// <summary>
@@ -130,8 +161,8 @@ Array<SparseMatrixType*> ConsistencyStage::doRelaxation(
 	}
 	
 	std::vector<int> seeds(numSeqs * numSeqs);
-	std::default_random_engine eng;
-	std::uniform_int_distribution<int> dist(0, 65536);
+	std::mt19937 eng;
+	det_uniform_int_distribution<int> dist(0, RND_MAX);
 	std::generate(seeds.begin(), seeds.end(), [&eng, &dist]()->int {
 		return dist(eng);
 	});
@@ -153,29 +184,50 @@ Array<SparseMatrixType*> ConsistencyStage::doRelaxation(
 		const int seq1Length = seq1->GetLength();
 		const int seq2Length = seq2->GetLength();
 
-		// contribution from the summation where z = x and z = y
-		float wi_wj =  (wi + wj) * selfweight;
-		float sumW = 1.0f;
+	
 
 		// contribution from all other sequences
 		int seed = seeds[i * numSeqs + j];
 		
+		int acceptedCount = 0;
+
 		for (int k = 0; k < numSeqs; k++){
 			if (k != i && k != j) {	
-				float x = std::max(distances[i][k], distances[j][k]);
+				float x = selectivity.function(distances[i][k], distances[j][k]);
 				seed = parkmiller(seed); // get next random number
-				x = filter(config->algorithm.consistency.selectivity, 0, x);
+				x = selectivity.filter(selectivity.filter_a, selectivity.filter_b, x);
 				float w = ((float)seed) * RND_MAX_INV - x;  
 				
 				if  (w < 0) {				
-					float wk = seqsWeights[k] / wi_wj;
-					sumW += wk;
-					relax (wk, sparseMatrices[i][k], sparseMatrices[k][j], posterior);
-				} else {
-				//	cout << "o-oh!";
-				}
+					acceptedCount++;
+				} 
 			}
 		}
+
+		seed = seeds[i * numSeqs + j];
+		// contribution from the summation where z = x and z = y
+		float wi_wj = 1.0f + (selfweight - 1.0f) * (float)acceptedCount / selectivity.filter_a;
+		wi_wj *= seqsWeights[i] + seqsWeights[j];
+
+		float sumW = 1.0f;
+		 
+		for (int k = 0; k < numSeqs; k++){
+		if (k != i && k != j) {	
+			float x = selectivity.function(distances[i][k], distances[j][k]);
+			seed = parkmiller(seed); // get next random number
+			x = selectivity.filter(selectivity.filter_a, selectivity.filter_b, x);
+			float w = ((float)seed) * RND_MAX_INV - x;  
+				
+			if  (w < 0) {				
+
+				float wk = seqsWeights[k] / wi_wj;
+				sumW += wk;
+				relax (wk, sparseMatrices[i][k], sparseMatrices[k][j], posterior);
+			} else {
+			//	cout << "o-oh!";
+			}
+		}
+	}
 	
 		for (int k = 0; k < (seq1Length+1) * (seq2Length+1); k++){
 			posterior[k] /= sumW;

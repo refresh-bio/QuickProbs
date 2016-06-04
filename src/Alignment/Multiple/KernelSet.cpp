@@ -12,7 +12,7 @@ void KernelSet::fillAll(const Configuration& config, std::shared_ptr<clex::OpenC
 	std::vector<int> files;
 	KernelFactory& factory = KernelFactory::instance(cl);
 
-	//if (config.optimisation.useTaylorHmm)			{ defines.push_back("USE_TAYLOR_HMM"); }
+	if (config.optimisation.useTaylorHmm)			{ defines.push_back("USE_TAYLOR_HMM"); }
 	if (!config.optimisation.useDoublePartition)	{ defines.push_back("USE_FLOAT_PARTITION"); }
 	if (config.optimisation.divideHmmKernels)		{ defines.push_back("RETURN_GLOBAL"); }
 	if (config.optimisation.localHmmParams)			{ defines.push_back("COPY_PROBABILISTIC_PARAMS"); }

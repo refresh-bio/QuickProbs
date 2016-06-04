@@ -8,8 +8,6 @@
 #include "Hardware/OpenCl.h"
 #include "KernelRepository/KernelFactory.h"
 
-#include <boost/lexical_cast.hpp>
-
 namespace quickprobs
 {
 
@@ -35,9 +33,9 @@ public:
 		int sparseWidth) : stripeCount(stripeCount), stripeLength(stripeLength), sparseWidth(sparseWidth)
 	{
 
-		defines.push_back("STRIPE_COUNT=" + boost::lexical_cast<std::string>(stripeCount));
-		defines.push_back("STRIPE_LENGTH=" + boost::lexical_cast<std::string>(stripeLength));
-		defines.push_back("STRIPE_LENGTH_LOG2=" + boost::lexical_cast<std::string>((int)mathex::log2(stripeLength)));
+		defines.push_back("STRIPE_COUNT=" + std::to_string(stripeCount));
+		defines.push_back("STRIPE_LENGTH=" + std::to_string(stripeLength));
+		defines.push_back("STRIPE_LENGTH_LOG2=" + std::to_string((int)mathex::log2(stripeLength)));
 
 		obj = KernelFactory::instance(cl).create(files, name, defines);
 	}

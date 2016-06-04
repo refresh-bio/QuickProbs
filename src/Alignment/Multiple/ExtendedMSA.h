@@ -31,7 +31,7 @@ public:
 	
 	virtual std::unique_ptr<MultiSequence> doAlign(MultiSequence *sequences);
 
-	virtual void reset() {  }
+	virtual void reset() { this->clearStats();  }
 	
 protected:
 	

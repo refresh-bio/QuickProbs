@@ -4,6 +4,8 @@ project (Common)
 set(SRC_FILES 
 	Array.h
 	dbgnew.h
+	deterministic_random.cpp
+	deterministic_random.h
 	mathex.cpp
 	mathex.h
 	Log.h

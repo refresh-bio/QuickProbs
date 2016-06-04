@@ -1,4 +1,4 @@
- /*
+﻿ /*
 	QuickProbs version 2.0, October 2015
 	Adam Gudys, Sebastian Deorowicz
 	Silesian University of Technology, Gliwice, Poland
@@ -11,13 +11,14 @@
 #include "Alignment/Alignment.h"
 #include "Common/MemoryTools.h"
 #include "Common/rank.h"
+#include "Common/deterministic_random.h"
 
 using namespace std;
-
 
 int main(int argc, char* argv[])
 {
 	std::shared_ptr<quickprobs::KernelMSA> msa;
+
 	TIMER_CREATE(timer);
 	
 	TIMER_START(timer);
@@ -79,16 +80,19 @@ int main(int argc, char* argv[])
 			TIMER_STOP(configTimer); 
 
 			msa = shared_ptr<quickprobs::KernelMSA>(new quickprobs::KernelMSA(cl, config));
-		
+			
+			StatisticsProvider& globalStats = *msa;
+
+
 			for (int i = 0; i < config->io.inputFiles.size(); ++i) {
 				msa->operator()(config->io.inputFiles[i], config->io.outputFiles[i]);
-				msa->reset();
+			//	globalStats.addStats(*msa);
+			//	msa->reset();
 			}
 
-			msa->statistics["time.0.3-config"] = configTimer.seconds();
-
 			TIMER_STOP(timer);
-			msa->statistics["time.whole"] = timer.seconds();
+			globalStats.writeStats("time.0.3-config", configTimer.seconds());
+			globalStats.writeStats("time.whole", timer.seconds());
 			cerr << "Elapsed time [seconds] = " << timer.seconds();
 
 			cerr << "Saving stats..." << endl;

@@ -1,8 +1,3 @@
-/// <summary>
-/// Copyright 2012 Adam Gudys 
-/// Silesian University of Technology, Gliwice, Poland
-/// adam.gudys@polsl.pl
-/// </summary>
 #pragma once
 #include <memory>
 #include <vector>

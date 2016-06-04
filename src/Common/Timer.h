@@ -21,7 +21,7 @@
 	#define TIMER_STOP(timer) (timer).stop()
 	#define TIMER_SECONDS(timer) (timer).seconds()
 	#define TIMER_MSECONDS(timer) (timer).seconds()
-	#define TIMER_STOP_SAVE(timer, var) var=(timer).stop()
+	//#define TIMER_STOP_SAVE(timer, var) var=(timer).stop()
 #else
 	#define TIMER_CREATE(timer)
 	#define TIMER_START(timer)

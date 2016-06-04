@@ -4,6 +4,7 @@ using namespace quickprobs;
 
 
 void quickprobs::RandomRefinement::split(
+	const GuideTree& tree,
 	const MultiSequence& alignment, 
 	std::set<int>& groupOne, 
 	std::set<int>& groupTwo)

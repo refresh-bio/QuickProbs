@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 project(QuickProbs)
 
 # The version number.
-set(QUICKPROBS_VERSION "2.03" CACHE STRING "QuickProbs version")
+set(QUICKPROBS_VERSION "2.04" CACHE STRING "QuickProbs version")
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
   set(BITNESS 64)
@@ -22,7 +22,7 @@ set(Enable_DevMode OFF)
 
 if (WIN32)
 	# configure following option to make boost working
-	set(Boost_PARENT_DIR "E:/SDKs/boost_1_55_0" CACHE STRING "Boost parent directory")
+	set(Boost_PARENT_DIR "E:/SDKs/boost_1_61_0" CACHE STRING "Boost parent directory")
 	
 	set(Boost_LIB_DIR "${Boost_PARENT_DIR}/lib64-msvc-11.0" CACHE STRING "Boost library directory")
 	set(Boost_INCLUDE_DIR "${Boost_PARENT_DIR}")
@@ -59,7 +59,7 @@ endif()
 add_definitions(-DQUICKPROBS_VERSION=${QUICKPROBS_VERSION})
 
 find_library(OpenCL_LIBRARIES OpenCL PATHS ${OpenCL_LIBRARYDIR})
-find_package(Boost COMPONENTS filesystem program_options thread regex date_time system chrono)
+find_package(Boost COMPONENTS filesystem program_options system)
 	
 
 

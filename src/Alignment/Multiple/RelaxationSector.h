@@ -2,7 +2,9 @@
 #include <vector>
 #include <list>
 #include <map>
+#include <functional>
 
+#include "Selectivity.h"
 #include "Alignment/DataStructures/SparseMatrixType.h"
 #include "ITasksWave.h"
 #include "AuxiliaryStructures.h"
@@ -36,7 +38,10 @@ public:
 	static std::vector<std::shared_ptr<RelaxationSector>> generate(
 		const Array<SparseMatrixType*>& sparseMatrices,
 		const std::vector<unsigned int>& sortingMap,
+		const Array<float>& distances,
+		const Selectivity& selectivity,
 		std::vector<unsigned int>& sparseOffsets,
+
 		int sectorResolution);
 
 	RelaxationSector(int taskCount, int sector_i, int sector_j, int i_begin, int j_begin, int height, int width) 

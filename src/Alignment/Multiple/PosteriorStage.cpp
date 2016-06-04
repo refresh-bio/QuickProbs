@@ -46,10 +46,13 @@ void PosteriorStage::operator()(
 	TIMER_CREATE(timer);
 	TIMER_START(timer);
 	run(set, distances, sparseMatrices);
-	TIMER_STOP_SAVE(timer, statistics["time.1-posterior calculation"]);
+	TIMER_STOP(timer);
+	STATS_WRITE("time.1-posterior calculation", timer.seconds());
 
-	size_t elems = config->io.enableVerbose ? SparseHelper::totalElements(sparseMatrices) : 0;
-	STATS_WRITE("memory.sparse posterior cells", (double)elems);
+	size_t elemsCount = config->io.enableVerbose ? SparseHelper::totalElements(sparseMatrices) : 0;
+	double elemsSum = config->io.enableVerbose ? SparseHelper::sumOfElements(sparseMatrices) : 0;
+	STATS_WRITE("memory.sparse posterior cells", elemsCount);
+	STATS_WRITE("memory.sparse posterior sum", elemsSum);
 }
 
 /// <summary>

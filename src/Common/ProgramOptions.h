@@ -20,6 +20,12 @@ public:
 		po::options_description& ops = developer ? developerOptions : normalOptions;
 		ops.add_options()(name.c_str(), po::bool_switch(), desc.c_str());
 	}
+
+	void addSwitch(const std::string & name, const std::string & desc, bool def, bool developer)
+	{
+		po::options_description& ops = developer ? developerOptions : normalOptions;
+		ops.add_options()(name.c_str(), po::bool_switch()->default_value(def), desc.c_str());
+	}
 	
 	
 	/// <summary>

@@ -1,7 +1,9 @@
-#include <sstream>
 #include "DeviceInfo.h"
 
 #include "../Common/dbgnew.h"
+
+#include <sstream>
+#include <algorithm>
 
 #undef min
 #undef max

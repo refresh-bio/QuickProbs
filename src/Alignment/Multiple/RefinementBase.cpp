@@ -11,6 +11,7 @@
 using namespace quickprobs;
 
 std::unique_ptr<MultiSequence> quickprobs::RefinementBase::operator()(
+	const GuideTree& tree,
 	const float *seqsWeights, 
 	const Array<float>& distances, 
 	const Array<SparseMatrixType*> &sparseMatrices, 
@@ -37,13 +38,15 @@ std::unique_ptr<MultiSequence> quickprobs::RefinementBase::operator()(
 
 
 	if (iterations > 0) {
+		LOG_NORMAL << "Initialisation..." << std::endl;
 		bool prepared = initialise(seqsWeights, distances, sparseMatrices, model, *alignment);
 		
+		LOG_NORMAL << "Iteration started..." << std::endl;
 		notifyObservers(*alignment, 0);
 
 		for (currentIter = 0; currentIter < iterations; currentIter++) {
 			if (prepared) {
-				alignment = refine(seqsWeights, distances, sparseMatrices, model, std::move(alignment), 0);
+				alignment = refine(tree, seqsWeights, distances, sparseMatrices, model, std::move(alignment), 0);
 			}
 			
 			notifyObservers(*alignment, currentIter + 1);
@@ -52,14 +55,17 @@ std::unique_ptr<MultiSequence> quickprobs::RefinementBase::operator()(
 		finalise();
 	}
 
-	statistics["time.4-2-1-1-preparation"] = model.timePreparation;
-	statistics["time.4-2-1-2-calculation"] = model.timeCalculaton;
-	statistics["time.4-2-1-3-reduction"] = model.timeReduction;
+	LOG_DEBUG << std::endl;
 
-	statistics["time.4-2-1-building posterior matrices"] = constructor->timeMatrixAddition;
-	statistics["time.4-2-2-dynamic programming"] = constructor->timeDynamicProgramming;
+	STATS_WRITE("time.4-2-1-1-preparation", model.timePreparation);
+	STATS_WRITE("time.4-2-1-2-calculation", model.timeCalculaton);
+	STATS_WRITE("time.4-2-1-3-reduction", model.timeReduction);
 
-	TIMER_STOP_SAVE(timer, statistics["time.4-2-refinement"]);
+	STATS_WRITE("time.4-2-1-building posterior matrices", constructor->timeMatrixAddition);
+	STATS_WRITE("time.4-2-2-dynamic programming", constructor->timeDynamicProgramming);
+
+	TIMER_STOP(timer);
+	STATS_WRITE("time.4-2-refinement", timer.seconds());
 
 	return std::move(alignment);
 }
@@ -74,6 +80,7 @@ void quickprobs::RefinementBase::notifyObservers(const MultiSequence& alignment,
 }
 
 std::unique_ptr<MultiSequence> quickprobs::RefinementBase::refine(
+	const GuideTree& tree,
 	const float *seqsWeights, 
 	const Array<float>& distances, 
 	const Array<SparseMatrixType*> &sparseMatrices, 
@@ -82,7 +89,7 @@ std::unique_ptr<MultiSequence> quickprobs::RefinementBase::refine(
 	int depth)
 {
 	std::set<int> groupOne, groupTwo;
-	split(*alignment, groupOne, groupTwo);
+	split(tree, *alignment, groupOne, groupTwo);
 
 	if (groupOne.size() > 0 && groupTwo.size() > 0) {
 		auto profileOne = alignment->extractSubset(groupOne); 

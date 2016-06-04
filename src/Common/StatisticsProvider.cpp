@@ -1,12 +1,17 @@
 #include "StatisticsProvider.h"
 #include <fstream>
 
+std::ostream& operator<<(std::ostream& os, IStats& stats) {
+	os << stats.toString();
+	return os;
+}
+
 std::string StatisticsProvider::printStats()
 {
 	std::ostringstream oss;
 
 	for (auto s = statistics.begin(); s != statistics.end(); s++) {
-		oss << s->first << ": " << s->second << std::endl;
+		oss << s->first << ": " << s->second->toString() << std::endl;
 	}
 
 	return oss.str();
@@ -20,7 +25,7 @@ void StatisticsProvider::saveStats(std::string file)
 	out << "[stats]" << std::endl;
 
 	for (auto s = statistics.begin(); s != statistics.end(); s++) {
-		out << s->first << "=" << s->second << std::endl;
+		out << s->first << "=" << s->second->toString() << std::endl;
 	}
 
 	out.close();
