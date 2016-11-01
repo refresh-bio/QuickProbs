@@ -3,7 +3,7 @@ import os
 
 
 className = 'KernelRepository'
-dir = './'
+dir = './Kernels/'
 
 classDecl = open(className + '.h', 'w')
 classDecl.write(

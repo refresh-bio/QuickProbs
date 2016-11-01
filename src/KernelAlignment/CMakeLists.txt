@@ -10,30 +10,30 @@ set(MAIN_FILES
 )
 
 set(KERNEL_FILES 
-	AuxiliaryStructures.cl
-	BinarySearch.cl
-	Finalization.cl
-	Finalization_long.cl
-	LogarithmUtils.cl
-	MemoryTransfers.cl
-	Partition.cl
-	PartitionLogarithm.cl
-	Partition_long.cl
-	PartitionLogarithm_long.cl
-	Probabilistic.cl
-	Probabilistic_long.cl
-	Random.cl
-	ScoreType.cl
-	SparseMatrix.cl
-	SparseMatrix_long.cl
-	Utils.cl
+	Kernels/AuxiliaryStructures.cl
+	Kernels/BinarySearch.cl
+	Kernels/Finalization.cl
+	Kernels/Finalization_long.cl
+	Kernels/LogarithmUtils.cl
+	Kernels/MemoryTransfers.cl
+	Kernels/Partition.cl
+	Kernels/PartitionLogarithm.cl
+	Kernels/Partition_long.cl
+	Kernels/PartitionLogarithm_long.cl
+	Kernels/Probabilistic.cl
+	Kernels/Probabilistic_long.cl
+	Kernels/Random.cl
+	Kernels/ScoreType.cl
+	Kernels/SparseMatrix.cl
+	Kernels/SparseMatrix_long.cl
+	Kernels/Utils.cl
 
-	MultipleConsistency_old.cl
-	MultipleConsistencyUtils.cl
-	MultiplePartition.cl
-	MultipleProbabilistic.cl
-	MultipleFinalization.cl
-	MultipleSparse.cl
+	Kernels/MultipleConsistency_old.cl
+	Kernels/MultipleConsistencyUtils.cl
+	Kernels/MultiplePartition.cl
+	Kernels/MultipleProbabilistic.cl
+	Kernels/MultipleFinalization.cl
+	Kernels/MultipleSparse.cl
 	
 )
 	
