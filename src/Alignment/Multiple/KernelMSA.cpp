@@ -3,7 +3,7 @@
 #include <omp.h>
 
 #include "Hardware/Kernel.h"
-#include "KernelRepository/KernelFactory.h"
+#include "KernelAlignment/KernelFactory.h"
 #include "Common/MemoryTools.h"
 #include "Common/Log.h"
 #include "Common/rank.h"

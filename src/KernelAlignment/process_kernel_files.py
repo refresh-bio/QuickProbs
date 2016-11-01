@@ -3,7 +3,7 @@ import os
 
 
 className = 'KernelRepository'
-dir = '.'
+dir = './'
 
 classDecl = open(className + '.h', 'w')
 classDecl.write(
@@ -26,7 +26,7 @@ for fileName in os.listdir(dir):
 		extension = splitted[1]
 		
 		if extension == '.cl':
-			fileList.append(fileName)
+			fileList.append(dir + fileName)
 					
 			classDecl.write('static const int ' + base + ';\n')
 			classDef.write('const int ' + className + '::' + base + ' = ' + str(counter) + ';\n')

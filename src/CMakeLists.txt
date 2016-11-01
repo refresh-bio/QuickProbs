@@ -67,7 +67,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_LINKER_FLAGS}" )
 add_subdirectory(Common)
 add_subdirectory(Hardware)
 add_subdirectory(Alignment)
-add_subdirectory(KernelRepository)
+add_subdirectory(KernelAlignment)
 add_subdirectory(Console)
 add_subdirectory(Console-OpenCL)
 

@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6)
-project (KernelRepository)
+project (KernelAlignment)
 
 set(MAIN_FILES
 	KernelFactory.cpp
@@ -44,8 +44,8 @@ include_directories(${OpenCL_INCLUDE_DIRS})
 source_group("" FILES ${MAIN_FILES})
 source_group("Kernels" FILES ${KERNEL_FILES})
 
-add_library(KernelRepository STATIC ${MAIN_FILES} ${KERNEL_FILES})
-target_link_libraries(KernelRepository ${OpenCL_LIBRARIES} ${Boost_LIBRARIES} Common Hardware)
+add_library(KernelAlignment STATIC ${MAIN_FILES} ${KERNEL_FILES})
+target_link_libraries(KernelAlignment ${OpenCL_LIBRARIES} ${Boost_LIBRARIES} Common Hardware)
 
 #if (WIN32)
 #	add_custom_command(TARGET KernelRepository 

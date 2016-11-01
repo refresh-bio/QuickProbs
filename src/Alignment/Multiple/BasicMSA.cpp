@@ -6,7 +6,6 @@
 #include "Common/Timer.h"
 #include "Common/MemoryTools.h"
 #include "Common/Log.h"
-#include "KernelRepository/KernelFactory.h"
 
 #include "DataStructures/Sequence.h"
 #include "DataStructures/MultiSequence.h"

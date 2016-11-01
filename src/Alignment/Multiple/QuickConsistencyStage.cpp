@@ -3,7 +3,7 @@
 #include "Common/MemoryTools.h"
 #include "Common/deterministic_random.h"
 #include "MemoryPool.h"
-#include "KernelRepository/KernelFactory.h"
+#include "KernelAlignment/KernelFactory.h"
 
 #include "GuideTree.h"
 #include "QuickConsistencyStage.h"

@@ -6,7 +6,7 @@
 #include "Common/mathex.h"
 #include "Hardware/Kernel.h"
 #include "Hardware/OpenCl.h"
-#include "KernelRepository/KernelFactory.h"
+#include "KernelAlignment/KernelFactory.h"
 
 namespace quickprobs
 {

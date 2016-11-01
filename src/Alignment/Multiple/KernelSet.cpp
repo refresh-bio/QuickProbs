@@ -1,7 +1,7 @@
 #include "KernelSet.h"
 
-#include "KernelRepository/KernelRepository.h"
-#include "KernelRepository/KernelFactory.h"
+#include "KernelAlignment/KernelRepository.h"
+#include "KernelAlignment/KernelFactory.h"
 
 using namespace quickprobs;
 
