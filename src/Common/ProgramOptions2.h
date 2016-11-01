@@ -3,31 +3,52 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <boost/program_options.hpp>
+#include <vector>
+#include <memory>
 
-namespace po = boost::program_options;
+class AbstractOption {
+public:
+	const std::string name;
+	const std::string desc;
+	const bool isDeveloper;
+};
 
-class ProgramOptions
+template <class T>
+class Option : public IOption {
+public:
+	Option(
+		const std::string& name,
+		const std::string& desc,
+		const T def,
+		bool isDeveloper) 
+		: name(name), desc(desc), def(def), isDeveloper(isDeveloper) {}
+private:
+	T default;
+	T value;
+	
+};
+
+class Switch : public IOption{
+public:
+	
+
+	Switch(const std::string& name, const std::string& desc, bool isDeveloper) :
+		name(name), desc(desc), isDeveloper(isDeveloper) {}
+};
+
+class ProgramOptions2
 {
 public:
-	ProgramOptions(const std::string & executable) : normalOptions("Options"), executable(executable)
+	ProgramOptions2(const std::string & executable) : executable(executable)
 	{
-		
+
 	}
 
 	void addSwitch(const std::string & name, const std::string & desc, bool developer)
 	{
-		po::options_description& ops = developer ? developerOptions : normalOptions;
-		ops.add_options()(name.c_str(), po::bool_switch(), desc.c_str());
+		switches.emplace_back(name, desc, developer);
 	}
 
-/*	void addSwitch(const std::string & name, const std::string & desc, bool def, bool developer)
-	{
-		po::options_description& ops = developer ? developerOptions : normalOptions;
-		ops.add_options()(name.c_str(), po::bool_switch()->default_value(def), desc.c_str());
-	}
-*/	
-	
 	/// <summary>
 	/// Adds option with given name and description.
 	/// </summary>
@@ -76,7 +97,10 @@ public:
 	}
 
 	void parse(int argc, char *argv[])
-	{	
+	{
+		
+		
+		
 		std::vector<std::string> args;
 
 		for (int i = 0; i < argc; i++)
@@ -105,7 +129,7 @@ public:
 	{
 		if (map.count(name) == 0)
 			return false;
-		
+
 		result = map[name].as<T>();
 		return true;
 	}
@@ -117,17 +141,17 @@ public:
 		if (!get(name, var)) {
 			throw std::runtime_error("Unable to read parameter: " + name);
 		}
-		
+
 		return var;
 	}
 
 	const std::string toString(bool showDeveloperOptions) const
 	{
 		std::ostringstream out;
-		
+
 		// print command line
 		out << "Options:" << std::endl << normalOptions << std::endl;
-	
+
 		if (showDeveloperOptions) {
 			out << std::endl << "Developer options:" << std::endl << developerOptions << std::endl;
 		}
@@ -136,6 +160,11 @@ public:
 	}
 
 private:
+	std::vector<std::shared_ptr<IOption>> normalOptions;
+	std::vector<std::shared_ptr<IOption>> developerOptions;
+
+	std::vector<Switch> switches;
+
 	std::string executable;
 
 	po::variables_map map;
@@ -143,5 +172,5 @@ private:
 	po::options_description developerOptions;
 	po::positional_options_description positionalOptions;
 
-	
+
 };

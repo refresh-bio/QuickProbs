@@ -145,7 +145,7 @@ int SparseHelper::filterGlobal( Array<SparseMatrixType*>& matrices, float remain
 	cutoffs[0] = 1.0;
 	
 	for (int i = 1; i < cutoffs.size(); ++i) {
-		cutoffs[i] = cutoffs[i-1] / 1.2;
+		cutoffs[i] = cutoffs[i-1] / 1.2f;
 	}
 
 	::size_t totalSparseElements = 0;

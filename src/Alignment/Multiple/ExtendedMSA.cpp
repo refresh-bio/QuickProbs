@@ -1,261 +1,321 @@
-#include <iomanip>
+#include <memory>
 #include <algorithm>
-
 #include <omp.h>
 
-#include "Common/Timer.h"
 #include "Common/MemoryTools.h"
 #include "Common/Log.h"
-#include "KernelRepository/KernelFactory.h"
+#include "Common/rank.h"
+#include "Common/deterministic_random.h"
 
-#include "DataStructures/Sequence.h"
-#include "DataStructures/MultiSequence.h"
-#include "ProbabilisticModel.h"
-#include "PartitionFunction.h"
-#include "ExtendedMSA.h"
-#include "DataStructures/SparseHelper.h"
-#include "PartitionFunction.h"
-#include "Configuration.h"
+#include "DataStructures/ContiguousMultiSequence.h"
+#include "SLinkTree.h"
 #include "ClusterTree.h"
+#include "PhylipTree.h"
+#include "PosteriorStage.h"
+#include "ConsistencyStage.h"
 #include "RandomRefinement.h"
+#include "ColumnRefinement.h"
+#include "ScoringRefinement.h"
+#include "TreeRefinement.h"
+#include "ExtendedMSA.h"
+#include "ParallelProbabilisticModel.h"
 
-using namespace quickprobs;
+#undef VERSION
+
 using namespace std;
+using namespace quickprobs;
 
 /// <summary>
 /// See declaration for all the details.
 /// </summary>
-quickprobs::ExtendedMSA::ExtendedMSA()
-{
-
-}
-
-/// <summary>
-/// See declaration for all the details.
-/// </summary>
-ExtendedMSA::ExtendedMSA(std::shared_ptr<Configuration> config) : config(config)
-{
-	int numCores = omp_get_num_procs();
-	LOG_NORMAL << "Detected " << numCores << " CPU cores" << endl;
-	
-	if (config->hardware.numThreads <= 0){
-		config->hardware.numThreads = numCores;
-		LOG_NORMAL << "Automatically set " << config->hardware.numThreads << " OpenMP threads." << endl;
-	} else {
-		LOG_NORMAL <<"Statically set " << config->hardware.numThreads<<" OpenMP threads." << endl << endl;
-	}
-	
-	posteriorStage = std::shared_ptr<PosteriorStage>(new PosteriorStage(config));
-	consistencyStage = std::shared_ptr<ConsistencyStage>(new ConsistencyStage(config));
-	constructionStage = std::shared_ptr<ConstructionStage>(new ConstructionStage(config));
-	refinementStage = std::shared_ptr<RefinementBase>(new RandomRefinement(config, constructionStage));
-}
-
-
-
-/// <summary>
-/// See declaration for all the details.
-/// </summary>
-void ExtendedMSA::operator()(std::string inputFile, std::string outputFile)
+ExtendedMSA::ExtendedMSA(std::shared_ptr<Configuration> config)
+	: BasicMSA()
 {
 	TIMER_CREATE(timer);
 	TIMER_START(timer);
-	
-	if (inputFile.length() == 0) {
-		LOG_NORMAL << "No input file specified!" << std::endl;
-		this->printUsage();
-		return;
+
+	this->config = config;
+	this->version = std::to_string(QUICKPROBS_VERSION);
+
+	int numCores = omp_get_num_procs();
+	LOG_NORMAL << "Detected " << numCores << " CPU cores" << endl;
+
+	if (config->hardware.numThreads <= 0) {
+		config->hardware.numThreads = numCores;
+		LOG_NORMAL << "Automatically set " << config->hardware.numThreads << " OpenMP threads." << endl;
 	}
-	
-	std::shared_ptr<ofstream> file;
-	std::ostream* alignOutFile;
-	
-	// open output files
-	if (outputFile.length() == 0) {
-		LOG_NORMAL << "The final alignment will be printed out to STDOUT" << std::endl;
-		alignOutFile = &std::cout;
-	} else {
-		LOG_NORMAL << "The final alignment will be saved to " << outputFile << std::endl;
-		file = std::shared_ptr<ofstream>(new ofstream(outputFile.c_str(), ios::binary | ios::out | ios::trunc));
-		alignOutFile = file.get();
+	else {
+		LOG_NORMAL << "Statically set " << config->hardware.numThreads << " OpenMP threads." << endl << endl;
 	}
-	
-	// read the input sequences
-	MultiSequence *sequences = new MultiSequence();
-	LOG_NORMAL << "Loading sequence file: " << inputFile << "...";
-	sequences->LoadMFA(inputFile, true);
-	LOG_NORMAL << "done!" << endl;
+
+	LOG_NORMAL << "OpenCL platform and device not specified - using pure CPU version." << endl;
+	posteriorStage = std::shared_ptr<PosteriorStage>(new PosteriorStage(config));
+	consistencyStage = std::shared_ptr<ConsistencyStage>(new ConsistencyStage(config));
+	constructionStage = std::shared_ptr<ConstructionStage>(new ConstructionStage(config));
+
+	if (config->algorithm.refinement.type == RefinementType::Column) {
+		refinementStage = std::shared_ptr<RefinementBase>(new ColumnRefinement(config, constructionStage));
+	}
+	else if (config->algorithm.refinement.type == RefinementType::Tree) {
+		refinementStage = std::shared_ptr<RefinementBase>(new TreeRefinement(config, constructionStage));
+	}
+	else {
+		refinementStage = std::shared_ptr<RefinementBase>(new RandomRefinement(config, constructionStage));
+	}
+
+	refinementStage->registerObserver(this);
+
 	TIMER_STOP(timer);
-	STATS_WRITE("time.0.2-sequence loading", TIMER_SECONDS(timer));
-
-	// now, we can perform the alignments and write them out
-	LOG_NORMAL << "Performing alignment..." << endl;
-	auto alignment = doAlign(sequences);
-
-	//write the alignment results to standard output
-	TIMER_START(timer);
-	LOG_NORMAL << "Saving results...";
-	if (config->io.enableClustalWOutput) {
-		alignment->WriteALN(*alignOutFile);
-	} else {
-		alignment->WriteMFA(*alignOutFile);
-	}
-	LOG_NORMAL << "Alignment finished!" << endl;
-	TIMER_STOP(timer);
-	STATS_WRITE("time.6-result storing", TIMER_SECONDS(timer));
-
-	//release resources
-	delete sequences;
+	STATS_WRITE("time.0.1-initialisation", timer.seconds());
 }
 
-/// <summary>
-/// See declaration for all the details.
-/// </summary>
-std::unique_ptr<quickprobs::MultiSequence> ExtendedMSA::doAlign(quickprobs::MultiSequence* sequences)
+
+std::unique_ptr<quickprobs::MultiSequence> quickprobs::ExtendedMSA::doAlign(MultiSequence *sequences)
 {
-	assert (sequences);
+	assert(sequences);
 
 	TIMER_CREATE(timer);
 	TIMER_CREATE(totalTimer);
 	TIMER_START(totalTimer);
 
 	const int numSeqs = sequences->count();
-	
+	ISequenceSet* set;
+	ContiguousMultiSequence cms(*sequences);
+	set = &cms;
+
 	// create distance matrix
 	Array<float> distances(numSeqs);
 	Array<SparseMatrixType*> sparseMatrices(numSeqs);
-	
+
 	// all pairwise steps are encapsulated in a separate function now
-	posteriorStage->operator()(*sequences, distances, sparseMatrices);
+	posteriorStage->operator()(*set, distances, sparseMatrices);
 
 	// create the guide tree
-	auto tree = std::shared_ptr<GuideTree>(new ClusterTree(distances));
-	tree->operator()();
-	
+	std::shared_ptr<GuideTree> tree;
+	if (config->algorithm.treeKind == TreeKind::Chained) {
+		degenerateDistances(distances);
+		tree = std::shared_ptr<GuideTree>(new ClusterTree(distances));
+	}
+	else if (config->algorithm.treeKind == TreeKind::UPGMA) {
+		tree = std::shared_ptr<GuideTree>(new ClusterTree(distances));
+	}
+	else {
+		tree = std::shared_ptr<GuideTree>(new SLinkTree(distances));
+	}
+
+	(*tree)();
+
 	// perform the consistency transformation desired number of times
 	auto weights = tree->getWeights();
-	consistencyStage->operator()(weights.data(), *sequences, distances, sparseMatrices);
-/*	
+
+	// calculate subtree distances and normalize them
+	Array<float> consistencyDistances;
+
+	if (config->algorithm.consistency.mode == SelectivityMode::Subtree) {
+		consistencyDistances = tree->calculateSubtreeDistances();
+	}
+	else if (config->algorithm.consistency.mode == SelectivityMode::Similarity) {
+		consistencyDistances = distances;
+	}
+	else if (config->algorithm.consistency.mode == SelectivityMode::Seed) {
+		consistencyDistances = Array<float>(numSeqs);
+		std::fill(consistencyDistances.getData().begin(), consistencyDistances.getData().end(), std::numeric_limits<float>::max());
+
+		std::vector<int> seedIds(config->algorithm.consistency.selectivity);
+		std::mt19937 eng;
+		det_uniform_int_distribution<int> dist(0, numSeqs - 1);
+		std::generate(seedIds.begin(), seedIds.end(), [&eng, &dist]()->float {
+			return dist(eng);
+		});
+
+		for (int seed : seedIds) {
+			for (int i = 0; i < numSeqs; ++i) {
+				consistencyDistances[seed][i] = consistencyDistances[i][seed] = 0.0;
+			}
+		}
+	}
+
+	if (config->algorithm.consistency.normalization == SelectivityNormalization::Stochastic) {
+		// normalize distances for stochastic 
+		float maxElem = *std::max_element(consistencyDistances.getData().begin(), consistencyDistances.getData().end());
+		if (maxElem > 1.0f) {
+			std::transform(consistencyDistances.getData().begin(), consistencyDistances.getData().end(), consistencyDistances.getData().begin(),
+				[maxElem](float x) -> float {
+				return x / maxElem;
+			});
+		}
+	}
+	else if (config->algorithm.consistency.normalization == SelectivityNormalization::RankedStochastic) {
+		// rank and normalize distances for ranked 
+		for (int i = 0; i < distances.size(); ++i) {
+			consistencyDistances[i][i] = std::numeric_limits<float>::max();
+		}
+
+		rank_range(
+			consistencyDistances.getData().begin(),
+			consistencyDistances.getData().end(),
+			consistencyDistances.getData().begin(),
+			std::greater<float>());
+
+		std::transform(consistencyDistances.getData().begin(), consistencyDistances.getData().end(), consistencyDistances.getData().begin(),
+			[numSeqs](float x)->float {
+			return x / (numSeqs * (numSeqs - 1));
+		});
+	}
+	else if (config->algorithm.consistency.normalization == SelectivityNormalization::RankedRowStochastic) {
+		// rank and normalize distances for ranked 
+		for (int i = 0; i < distances.size(); ++i) {
+			consistencyDistances[i][i] = std::numeric_limits<float>::max();
+		}
+
+		for (int i = 0; i < consistencyDistances.size(); ++i) {
+			auto inBegin = consistencyDistances.getData().begin() + i * distances.size();
+			auto inEnd = inBegin + consistencyDistances.size();
+			auto outBegin = consistencyDistances.getData().begin() + i * distances.size();
+			rank_range(inBegin, inEnd, outBegin, std::greater<float>());
+		}
+
+		std::transform(consistencyDistances.getData().begin(), consistencyDistances.getData().end(), consistencyDistances.getData().begin(),
+			[numSeqs](float x)->float {
+			return x / numSeqs;
+		});
+
+	}
+
+	for (float& w : weights) { w = std::max(w, config->algorithm.consistency.saturation); }
+	consistencyStage->operator()(weights.data(), *set, consistencyDistances, sparseMatrices);
+
 	//compute the final multiple sequence alignment
 	TIMER_START(timer);
-	auto alignment = constructionStage->operator()(weights.data(), tree.get(), *sequences, sparseMatrices, *posteriorStage->getModel());		
-	alignment = refinementStage->operator()(weights.data(), distances, sparseMatrices, *posteriorStage->getModel(), *alignment);
-	TIMER_STOP_SAVE(timer, statistics["time.4-final alignment"]);
+	weights = tree->getWeights();
+	for (float& w : weights) { w = std::max(w, config->algorithm.finalSaturation); }
+
+	auto model = posteriorStage->getModel();
+	if (config->hardware.refNumThreads > 0) {
+		model->setNumThreads(config->hardware.refNumThreads);
+	}
+	else {
+		model->setNumThreads(std::max(std::min(config->hardware.numThreads / 2, 8), 1));
+	}
+
+	omp_set_num_threads(model->getNumThreads());
+	auto alignment = constructionStage->operator()(weights.data(), consistencyDistances, tree.get(), *sequences, sparseMatrices, *model);
+	alignment = refinementStage->operator()(*tree, weights.data(), consistencyDistances, sparseMatrices, *model, std::move(alignment));
+	TIMER_STOP(timer);
+	STATS_WRITE("time.4-final alignment", TIMER_SECONDS(timer));
 
 	// build annotation
 	if (config->io.enableAnnotation) {
 		WriteAnnotation(alignment.get(), sparseMatrices);
 	}
-*/	
+
 	// delete sparse matrices
-	for (int a = 0; a < numSeqs-1; a++) {
-		for (int b = a+1; b < numSeqs; b++) {
+	LOG_NORMAL << "Deleting matrices...";
+	TIMER_START(timer);
+	for (int a = 0; a < numSeqs - 1; a++) {
+		for (int b = a + 1; b < numSeqs; b++) {
 			delete sparseMatrices[a][b];
 			delete sparseMatrices[b][a];
 		}
 	}
+	TIMER_STOP(timer);
+	STATS_WRITE("time.5-delete", TIMER_SECONDS(timer));
 
-	TIMER_STOP(totalTimer);
-	STATS_WRITE("time.stages-1 to 5", totalTimer.seconds());
-	STATS_WRITE("memory.peak allocated MB", (double)MemoryTools::processPeakVirtual() / 1e6);
+	LOG_NORMAL << "ok" << endl;
+
+	TIMER_STOP(timer);
+	STATS_WRITE("time.stages-1 to 5", TIMER_SECONDS(timer));
+
+	STATS_WRITE("memory.peak allocated MB", MemoryTools::processPeakVirtual() / (1 << 20));
 
 	computeDatasetStatistics(*sequences, tree->getWeights().data());
 
+	this->joinStats(*tree);
 	this->joinStats(*posteriorStage);
 	this->joinStats(*consistencyStage);
 	this->joinStats(*constructionStage);
 	this->joinStats(*refinementStage);
+	size_t hash = alignment->calculateHash();
+	STATS_WRITE("zhash", hash);
+	LOG_DEBUG << "Hash = " << hash << endl;
 
-	//return alignment;
-	return nullptr;
+	return alignment;
 }
 
-/// <summary>
-/// See declaration for all the details.
-/// </summary>
-void ExtendedMSA::WriteAnnotation (
-	quickprobs::MultiSequence *alignment, 
-	const Array<SparseMatrixType*> &sparseMatrices)
+
+
+void quickprobs::ExtendedMSA::iterationDone(const MultiSequence& alignment, int iteration)
 {
-		ofstream outfile (config->io.annotationFilename.c_str());
-
-		if (outfile.fail()){
-			throw std::runtime_error("ERROR: Unable to write annotation file.");
-		}
-
-		const int alignLength = alignment->GetSequence(0)->GetLength();
-		const int numSeqs = alignment->count();
-
-		std::vector<int> position (numSeqs, 0);
-		std::vector<std::vector<char>::iterator> seqs (numSeqs);
-		for (int i = 0; i < numSeqs; i++) seqs[i] = alignment->GetSequence(i)->getIterator();
-		std::vector<pair<int,int> > active;
-		active.reserve (numSeqs);
-
-		std::vector<int> lab;
-		for (int i = 0; i < numSeqs; i++) lab.push_back(alignment->GetSequence(i)->GetSortLabel());
-
-		// for every column
-		for (int i = 1; i <= alignLength; i++){
-
-			// find all aligned residues in this particular column
-			active.clear();
-			for (int j = 0; j < numSeqs; j++){
-				if (seqs[j][i] != '-'){
-					active.push_back (make_pair(lab[j], ++position[j]));
-				}
-			}
-
-			stable_sort (active.begin(), active.end());
-			outfile << std::setw(4) << ComputeScore (active, sparseMatrices) << endl;
-		}
-
-		outfile.close();
+	if ((config->algorithm.refinement.autosave < std::numeric_limits<int>::max())
+		&& (iteration % config->algorithm.refinement.autosave == 0)) {
+		string filename = config->io.output + "_r" + std::to_string(iteration);
+		ofstream file(filename);
+		alignment.WriteMFA(file);
+	}
 }
 
-/// <summary>
-/// See declaration for all the details.
-/// </summary>
-int ExtendedMSA::ComputeScore (const std::vector<pair<int, int> > &active, 
-	const Array<SparseMatrixType*> &sparseMatrices)
+
+void quickprobs::ExtendedMSA::degenerateDistances(Array<float> &distances)
 {
-	if (active.size() <= 1) return 0;
+	float step = 1.0f / (distances.size() * distances.size() / 2);
+	float d = step;
 
-	// ALTERNATIVE #1: Compute the average alignment score.
+	std::vector<int> indices(distances.size());
+	std::iota(indices.begin(), indices.end(), 0);
+	std::mt19937 gen;
+	std::shuffle(indices.begin(), indices.end(), gen);
 
-	float val = 0;
-	for (int i = 0; i < (int) active.size(); i++){
-		for (int j = i+1; j < (int) active.size(); j++){
-			val += sparseMatrices[active[i].first][active[j].first]->getValue(active[i].second, active[j].second);
+	std::fill(distances.getData().begin(), distances.getData().end(), 1.0f);
+
+	for (int q = 0; q < indices.size(); ++q) {
+		int i = indices[q];
+		for (int r = 0; r < q; ++r) {
+			int j = indices[r];
+			distances[i][j] = distances[j][i] = d;
+			d += step;
 		}
 	}
 
-	return (int) (200 * val / ((int) active.size() * ((int) active.size() - 1)));
-
 }
 
-void ExtendedMSA::computeDatasetStatistics(const quickprobs::MultiSequence& sequences, const float* weights)
+void ExtendedMSA::printWelcome() {
+	LOG_NORMAL
+		<< "*************************************************************************************" << endl
+		<< "\t QuickProbs " << QUICKPROBS_VERSION << " (" << __DATE__ << ", " << __TIME__ << ")" << endl
+		<< "\t QuickProbs is a fast and accurate algorithm for multiple sequence alignment" << endl
+		<< "\t suited for GPUs." << endl // It uses novel column-based refinement and selective consistency." << endl
+		<< "\t Authors: Adam Gudys (adam.gudys@polsl.pl) and Sebastian Deorowicz." << endl
+		<< "*************************************************************************************" << endl << endl;
+}
+
+void quickprobs::ExtendedMSA::buildDistancesHistogram(const Array<float>& distances)
 {
-	int numSeqs = sequences.count();
-	std::vector<int> lengths(numSeqs);
-	
-	int idx = 0;
-	std::generate(lengths.begin(), lengths.end(), [&sequences, &idx]()->int {
-		return sequences.GetSequence(idx++)->GetLength();
-	});
+	int numSeqs = distances.size();
+	// build histogram
+	if (config->io.enableVerbose) {
+		std::vector<float> borders(10);
+		std::vector<int> histo(borders.size());
 
-	auto minmaxLength = std::minmax_element(lengths.begin(), lengths.end());
-	double meanLength = (double)std::accumulate(lengths.begin(), lengths.end(), 0) / numSeqs;
-	
-	auto minmaxWeight = std::minmax_element(weights, weights + numSeqs);
-	double meanWeight = (double)std::accumulate(weights, weights + numSeqs, 0) / numSeqs;
+		float step = 1.0f / borders.size();
+		borders[0] = step;
+		for (int i = 1; i < histo.size(); ++i) {
+			borders[i] = borders[i - 1] + step;
+		}
 
-	STATS_WRITE("dataset.count", numSeqs);
-	STATS_WRITE("dataset.length min", *(minmaxLength.first) );
-	STATS_WRITE("dataset.length max", *(minmaxLength.second) );
-	STATS_WRITE("dataset.length avg", meanLength);
+		for (int y = 0; y < numSeqs; ++y) {
+			for (int x = y + 1; x < numSeqs; ++x) {
+				float d = distances[y][x];
+				for (int i = 0; i < borders.size(); ++i) {
+					if (d <= borders[i]) {
+						++histo[i];
+						break;
+					}
+				}
+			}
+		}
 
-	STATS_WRITE("dataset.weight min", *(minmaxWeight.first) );
-	STATS_WRITE("dataset.weight max", *(minmaxWeight.second) );
-	STATS_WRITE("dataset.weight avg", meanWeight);
+		for (int i = 0; i < histo.size(); ++i) {
+			STATS_WRITE("histo.distances_" + to_string(borders[i]), histo[i]);
+		}
+	}
 }

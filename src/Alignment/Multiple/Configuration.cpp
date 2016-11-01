@@ -290,16 +290,22 @@ void quickprobs::Configuration::setType(quickprobs::AlignmentType type)
 			partition.gapExtend = -1.31272;
 			partition.gapOpen = -22.9675;
 			partition.temperature = 5.02492;
-
-
-		} else {
+		} else if (partition.matrix == "Vtml200") {
 	//		partition.gapExtend = -1.5;
 	//		partition.gapOpen = -22.15;
 	//		partition.temperature = 4.95;
 
+	//		partition.gapExtend = -1;
+	//		partition.gapOpen = -22;
+	//		partition.temperature = 5;
+
 			partition.gapExtend = -1.30113;
 			partition.gapOpen = -25.3549;
 			partition.temperature = 5.6007;
+		} else if (partition.matrix == "Gonnet160") {
+			partition.gapExtend = -1;
+			partition.gapOpen = -22;
+			partition.temperature = 5;
 		}
 		
 		// optimised parameters

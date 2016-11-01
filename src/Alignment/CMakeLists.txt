@@ -125,6 +125,8 @@ set(MSA_PHYLOGENY_FILES
 
 set(MSA_MAIN_FILES
 	Multiple/AuxiliaryStructures.h	
+	Multiple/BasicMSA.h
+	Multiple/BasicMSA.cpp
 	Multiple/Common.h	
 	Multiple/Configuration.cpp
 	Multiple/Configuration.h

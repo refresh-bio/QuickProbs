@@ -15,6 +15,14 @@ public:
 	Array(const Array<T>& ref) : width(ref.width), height(ref.height), v(ref.v) {}
 	Array(Array&& rhs) : width(rhs.width), height(rhs.height), v(std::move(rhs.v)) {}
 
+	Array<T>& operator=(const Array<T>& ref) = default;
+
+	void resize(int width, int height) {
+		this->width = width;
+		this->height = height;
+		v.resize(width * height);
+	}
+
 	T* operator[](const int row) { return v.data() + row * width; }
 	const T* operator[](const int row) const { return v.data() + row * width; }
 

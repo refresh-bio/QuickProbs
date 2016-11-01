@@ -25,6 +25,13 @@ cl_int clCall(cl_int code)
 	return code;
 }
 
+double clex::OpenCL::profileTimeMsec(cl::Event & profilingEvent)
+{
+	cl_ulong start = profilingEvent.getProfilingInfo<CL_PROFILING_COMMAND_START>();
+	cl_ulong end = profilingEvent.getProfilingInfo<CL_PROFILING_COMMAND_END>();
+	double timeMsec = (double)(end - start) / 1000000.0;
+	return timeMsec;
+}
 
 std::string clex::OpenCL::listDevices(int deviceType)
 {

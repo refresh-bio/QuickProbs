@@ -38,7 +38,7 @@ LogPartitionFunctionParams::LogPartitionFunctionParams(const Scoring<double>& sc
 			int out_j = scoring.alphabet[j] - 'A';
 
 			double value = beta * scoring.get(i, j);
-			raw.subMatrix[out_i * 26 + out_j] = raw.subMatrix[out_j * 26 + out_i] = value;
+			raw.subMatrix[out_i * 26 + out_j] = raw.subMatrix[out_j * 26 + out_i] = (float)value;
 		}
 	}
 

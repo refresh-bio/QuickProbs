@@ -24,13 +24,13 @@ if (WIN32)
 	# configure following option to make boost working
 	set(Boost_PARENT_DIR "E:/SDKs/boost_1_61_0" CACHE STRING "Boost parent directory")
 	
-	set(Boost_LIB_DIR "${Boost_PARENT_DIR}/lib64-msvc-11.0" CACHE STRING "Boost library directory")
+	set(Boost_LIB_DIR "${Boost_PARENT_DIR}/lib64-msvc-14.0" CACHE STRING "Boost library directory")
 	set(Boost_INCLUDE_DIR "${Boost_PARENT_DIR}")
 	set(BOOST_LIBRARYDIR "${Boost_LIB_DIR}")
 	
-	set(OpenCL_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../libs-vs11/opencl/include" CACHE STRING "OpenCL include directory")
-	set(OpenCL_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs-vs11/opencl/x86_64" CACHE STRING "OpenCL library directory")
-	set(TCMalloc_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs-vs11/tcmalloc/lib64" CACHE STRING "TCMalloc library directory")
+	set(OpenCL_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../libs/opencl/include" CACHE STRING "OpenCL include directory")
+	set(OpenCL_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs/opencl/x86_64" CACHE STRING "OpenCL library directory")
+	set(TCMalloc_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs/tcmalloc/lib64" CACHE STRING "TCMalloc library directory")
 
 	set(EXTRA_LINKER_FLAGS "/INCLUDE:__tcmalloc")
 	set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /openmp" )
@@ -68,5 +68,6 @@ add_subdirectory(Common)
 add_subdirectory(Hardware)
 add_subdirectory(Alignment)
 add_subdirectory(KernelRepository)
+add_subdirectory(Console)
 add_subdirectory(Console-OpenCL)
 

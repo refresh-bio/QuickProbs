@@ -12,11 +12,9 @@
 namespace quickprobs 
 {
 
-class KernelMSA : public ExtendedMSA, public IRefinementObserver
+class KernelMSA : public ExtendedMSA
 {
 public:
-	static void printWelcome();
-
 	/// <summary>
 	/// </summary>
 	/// <param name=cl></param>
@@ -27,21 +25,9 @@ public:
 
 	virtual ~KernelMSA() {}
 
-	virtual std::unique_ptr<MultiSequence> doAlign(MultiSequence *sequences);
-
-	virtual void iterationDone(const MultiSequence& alignment, int iteration);
 
 protected:
-	std::string version;	
-	
 	std::shared_ptr<clex::OpenCL> cl;
-
-
-protected:	
-	
-	virtual void degenerateDistances(Array<float> &distances);
-
-	virtual void buildDistancesHistogram(const Array<float>& distances);
 };
 
 };

@@ -4,7 +4,6 @@
 #include "Alignment/Pairwise/Scoring.h"
 #include "Common/mathex.h"
 
-#include <CL/cl.h>
 #include <cstring>
 
 namespace quickprobs

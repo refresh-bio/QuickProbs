@@ -35,13 +35,7 @@ public:
 
 	std::shared_ptr<cl::Context> context;
 
-	static double profileTimeMsec(cl::Event & profilingEvent)
-	{
-		cl_ulong start = profilingEvent.getProfilingInfo<CL_PROFILING_COMMAND_START>();
-		cl_ulong end = profilingEvent.getProfilingInfo<CL_PROFILING_COMMAND_END>();
-		double timeMsec = (double)(end - start) / 1000000.0;
-		return timeMsec;
-	}
+	static double profileTimeMsec(cl::Event & profilingEvent);
 
 	/// <summary>
 	/// Lists all OpenCL-compatible devices.
