@@ -3,23 +3,25 @@
 #include <omp.h>
 
 #include "Hardware/Kernel.h"
-#include "KernelAlignment/KernelFactory.h"
 #include "Common/MemoryTools.h"
 #include "Common/Log.h"
 #include "Common/rank.h"
 #include "Common/deterministic_random.h"
 
-#include "SLinkTree.h"
-#include "ClusterTree.h"
-#include "PhylipTree.h"
+#include "Alignment/Multiple/SLinkTree.h"
+#include "Alignment/Multiple/ClusterTree.h"
+#include "Alignment/Multiple/PhylipTree.h"
+#include "Alignment/Multiple/RandomRefinement.h"
+#include "Alignment/Multiple/ColumnRefinement.h"
+#include "Alignment/Multiple/ScoringRefinement.h"
+#include "Alignment/Multiple/TreeRefinement.h"
+#include "Alignment/Multiple/ParallelProbabilisticModel.h"
+
+#include "KernelAlignment/KernelFactory.h"
 #include "QuickPosteriorStage.h"
 #include "QuickConsistencyStage.h"
-#include "RandomRefinement.h"
-#include "ColumnRefinement.h"
-#include "ScoringRefinement.h"
-#include "TreeRefinement.h"
 #include "KernelMSA.h"
-#include "ParallelProbabilisticModel.h"
+
 
 #undef VERSION
 

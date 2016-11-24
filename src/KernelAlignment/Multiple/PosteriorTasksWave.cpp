@@ -1,11 +1,11 @@
 #include <functional>
 #include <algorithm>
 
-#include "DataStructures/JaggedMatrix.h"
-#include "DataStructures/Sequence.h"
-#include "DataStructures/MultiSequence.h"
-#include "DataStructures/ContiguousMultiSequence.h"
-#include "DataStructures/SparseMatrixType.h"
+#include "Alignment/DataStructures/JaggedMatrix.h"
+#include "Alignment/DataStructures/Sequence.h"
+#include "Alignment/DataStructures/MultiSequence.h"
+#include "Alignment/DataStructures/ContiguousMultiSequence.h"
+#include "Alignment/DataStructures/SparseMatrixType.h"
 #include "PosteriorTasksWave.h"
 
 using namespace quickprobs;

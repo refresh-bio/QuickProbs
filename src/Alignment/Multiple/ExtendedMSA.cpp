@@ -281,7 +281,7 @@ void quickprobs::ExtendedMSA::degenerateDistances(Array<float> &distances)
 void ExtendedMSA::printWelcome() {
 	LOG_NORMAL
 		<< "*************************************************************************************" << endl
-		<< "\t QuickProbs " << QUICKPROBS_VERSION << " (" << __DATE__ << ", " << __TIME__ << ")" << endl
+		<< "\t QuickProbs " << int(QUICKPROBS_VERSION) << " (" << __DATE__ << ", " << __TIME__ << ")" << endl
 		<< "\t QuickProbs is a fast and accurate algorithm for multiple sequence alignment" << endl
 		<< "\t suited for GPUs." << endl // It uses novel column-based refinement and selective consistency." << endl
 		<< "\t Authors: Adam Gudys (adam.gudys@polsl.pl) and Sebastian Deorowicz." << endl

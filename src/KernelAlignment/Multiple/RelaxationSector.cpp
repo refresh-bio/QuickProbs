@@ -2,9 +2,9 @@
 #include "Common/Log.h"
 #include "Common/mathex.h"
 
-#include "DataStructures/ContiguousMultiSequence.h"
-#include "DataStructures/PackedSparseMatrix.h"
-#include "DataStructures/SparseHelper.h"
+#include "Alignment/DataStructures/ContiguousMultiSequence.h"
+#include "Alignment/DataStructures/PackedSparseMatrix.h"
+#include "Alignment/DataStructures/SparseHelper.h"
 #include "RelaxationSector.h"
 
 #include "Common/deterministic_random.h"

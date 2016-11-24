@@ -1,27 +1,26 @@
 #define _VARIADIC_MAX 6
-#include <omp.h>
 
 #include "Common/mathex.h"
 #include "Common/Log.h"
 #include "Common/MemoryTools.h"
 
-
-#include "DataStructures/ISequenceSet.h"
-#include "DataStructures/Sequence.h"
-#include "DataStructures/MultiSequence.h"
-#include "DataStructures/ContiguousMultiSequence.h"
-#include "DataStructures/SparseMatrixType.h"
-#include "DataStructures/SparseHelper.h"
-
-#include "Pairwise/ProteinHmm5.h"
+#include "Alignment/DataStructures/ISequenceSet.h"
+#include "Alignment/DataStructures/Sequence.h"
+#include "Alignment/DataStructures/MultiSequence.h"
+#include "Alignment/DataStructures/ContiguousMultiSequence.h"
+#include "Alignment/DataStructures/SparseMatrixType.h"
+#include "Alignment/DataStructures/SparseHelper.h"
+#include "Alignment/Pairwise/ProteinHmm5.h"
+#include "Alignment/Multiple/ProbabilisticParams.h"
+#include "Alignment/Multiple/ParallelProbabilisticModel.h"
+#include "Alignment/Multiple/PartitionFunction.h"
+#include "Alignment/Multiple/Configuration.h"
+#include "Alignment/Multiple/ScoreType.h"
 
 #include "QuickPosteriorStage.h"
 #include "PosteriorTasksWave.h"
-#include "ProbabilisticParams.h"
-#include "ParallelProbabilisticModel.h"
-#include "PartitionFunction.h"
-#include "Configuration.h"
-#include "ScoreType.h"
+
+#include <omp.h>
 
 #include <thread>
 #include <atomic>

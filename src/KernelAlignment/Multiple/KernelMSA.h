@@ -4,10 +4,11 @@
 #include "Hardware/OpenCl.h"
 #include "Hardware/Kernel.h"
 #include "Alignment/DataStructures/ContiguousMultiSequence.h"
-#include "ExtendedMSA.h"
+#include "Alignment/Multiple/ExtendedMSA.h"
+#include "Alignment/Multiple/IRefinementObserver.h"
+
 #include "PosteriorTasksWave.h"
 #include "RelaxationSector.h"
-#include "IRefinementObserver.h"
 
 namespace quickprobs 
 {

@@ -16,9 +16,8 @@ set(SRC_FILES
 	PlatformInfo.h)
 
 include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${OpenCL_INCLUDE_DIRS})	
 			
 source_group("" FILES ${SRC_FILES})
 add_library(Hardware STATIC ${SRC_FILES})
-target_link_libraries(Hardware ${OpenCL_LIBRARIES} ${Boost_LIBRARIES} Common)
+target_link_libraries(Hardware ${OpenCL_LIBRARIES} Common)

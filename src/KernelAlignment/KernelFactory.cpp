@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <numeric>
 #include <iterator>
-#include <boost/filesystem.hpp>
 
 #include "KernelFactory.h"
 #include "KernelRepository.h"
@@ -13,7 +12,6 @@
 #include "Common/Log.h"
 
 using namespace std;
-using namespace cl;
 
 /// <summary>
 /// See declaration for all the details.
@@ -47,7 +45,12 @@ std::unique_ptr<clex::Kernel> KernelFactory::create(
 		auto numericKey =  std::hash<std::string>()(key);
 		std::string binaryFilename = std::to_string(numericKey) + ".bin";
 		std::unique_ptr<cl::Program> program;
-		bool binaryExists = boost::filesystem::exists(binaryFilename);
+		
+		// open temporairly to check if file exists
+		ifstream f(binaryFilename, ios::binary);
+		bool binaryExists = f.good();
+		f.close();
+		
 		// fixme:
 #ifdef _DEBUG
 		//binaryExists = false;
@@ -140,7 +143,7 @@ std::unique_ptr<cl::Program> KernelFactory::loadProgram(
 	*position = 0;
 
 	int code;
-	Program::Sources sources;
+	cl::Program::Sources sources;
 	sources.push_back(std::make_pair(buffer, strlen(buffer) + 1));
 	auto program = std::unique_ptr<cl::Program>(new cl::Program(*openCl->context, sources, &code));
 	clCall(code);
@@ -159,7 +162,7 @@ std::unique_ptr<cl::Program> KernelFactory::loadProgram(
 	std::vector<std::string> defines,
 	int maxRegisters)
 {
-	Program::Sources sources;
+	cl::Program::Sources sources;
 
 	for (int i = 0; i < resourceIds.size(); i++)
 	{
@@ -188,7 +191,7 @@ std::unique_ptr<cl::Program> KernelFactory::loadProgram(
 	char* buffer = new char[MAX_SOURCE_SIZE];
 	char* position = buffer;
 	ifstream file(binaryFilename, ios::binary);
-	Program::Binaries binaries;
+	cl::Program::Binaries binaries;
 
 	while (!file.eof())
 	{

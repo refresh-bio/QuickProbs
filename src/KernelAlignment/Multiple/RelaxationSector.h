@@ -4,10 +4,10 @@
 #include <map>
 #include <functional>
 
-#include "Selectivity.h"
+#include "Alignment/Multiple/Selectivity.h"
 #include "Alignment/DataStructures/SparseMatrixType.h"
+#include "Alignment/Multiple/AuxiliaryStructures.h"
 #include "ITasksWave.h"
-#include "AuxiliaryStructures.h"
 
 #include "Common/Array.h"
 

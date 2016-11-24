@@ -1,14 +1,13 @@
 #include "Configuration.h"
 #include "Alignment/Multiple/Common.h"
 
-#include <boost/filesystem.hpp>
-
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
+namespace fs = std::tr2::sys;
 using namespace std;
 using namespace quickprobs;
-namespace fs = boost::filesystem;
 
 
 Configuration::Configuration() : options("quickprobs.exe")
@@ -27,7 +26,7 @@ Configuration::Configuration() : options("quickprobs.exe")
 	
 	options.addSwitch("nucleotide,n","run QuickProbs in the nucleotide mode", false);
 
-	options.add<int>("num-threads,t", "number of threads (detect automatically if not specified)", 0);
+	options.add<int>("num-threads,t", "number of threads (detect automatically if not specified)", 0, false);
 	options.add<int>("platform,p", "OpenCL platform id (use CPU mode if not specified)", hardware.platformNum, false);
 	options.add<int>("device,d", "OpenCL device id (use CPU mode if not specified)", hardware.deviceNum, false);
 
@@ -140,7 +139,7 @@ void Configuration::setDefaults()
 	hardware.refNumThreads = 0;
 	hardware.deviceNum = -1;
 	hardware.platformNum = -1;
-	hardware.memoryLimitMb = 55e3;
+	hardware.memoryLimitMb = static_cast<int64_t>(55e3);
 	hardware.gpuMemFactor = 1.0f;
 
 	// optimisation parameters
@@ -158,7 +157,9 @@ void Configuration::setDefaults()
 bool Configuration::parse(int argc, char** argv)
 {
 	try {
-		options.parse(argc, argv);
+		if (!options.parse(argc, argv)) {
+			return false;
+		}
 
 		// I/O
 		options.get("infile", io.input);
@@ -238,6 +239,7 @@ bool Configuration::parse(int argc, char** argv)
 		options.get("device", hardware.deviceNum);
 		options.get("mem-limit", hardware.memoryLimitMb);
 
+
 		fs::path inputPath(io.input);
 		fs::path outputPath(io.output);
 		if (fs::is_directory(inputPath)) {
@@ -268,10 +270,7 @@ bool Configuration::parse(int argc, char** argv)
 	catch (std::runtime_error& error) {
 		return false;
 	}
-	catch (po::error) {
-		return false;
-	}
-
+	
 	return true;
 }
 
@@ -334,7 +333,7 @@ void quickprobs::Configuration::setType(quickprobs::AlignmentType type)
 
 std::string quickprobs::Configuration::toString()
 {
-	std::stringstream ss;
+	std::ostringstream ss;
 	ss << "I/O:" << endl
 		<< "inputFilename=" << io.input << endl
 		<< "outputFilename=" << io.output << endl

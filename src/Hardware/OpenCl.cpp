@@ -12,7 +12,6 @@
 #include "../Common/MemoryTools.h"
 #include "../Common/Log.h"
 
-using namespace cl;
 
 cl_int clCall(cl_int code)
 {
@@ -36,12 +35,12 @@ double clex::OpenCL::profileTimeMsec(cl::Event & profilingEvent)
 std::string clex::OpenCL::listDevices(int deviceType)
 {
 	std::ostringstream oss;
-	std::vector<Platform> platforms;
-	Platform::get(&platforms);
+	std::vector<cl::Platform> platforms;
+	cl::Platform::get(&platforms);
 
 	for (int i = 0; i < platforms.size(); i++) {
 		oss << "Platform " << i << ": " << PlatformInfo(platforms[i]).getName() << std::endl;
-		std::vector<Device> devices;
+		std::vector<cl::Device> devices;
 		platforms[i].getDevices(deviceType, &devices);
 
 		for (int j = 0; j < devices.size(); j++) {
@@ -57,8 +56,8 @@ clex::OpenCL::OpenCL(int deviceType, int platformNum, int deviceNum, bool kernel
 {
 	LOG_DEBUG << "Getting platforms...";
 	int code1, code2, code3;
-	std::vector<Platform> platforms;
-	code1 = clCall(Platform::get(&platforms));
+	std::vector<cl::Platform> platforms;
+	code1 = clCall(cl::Platform::get(&platforms));
 	LOG_DEBUG << "done!" << std::endl;
 	for (auto& p : platforms) {
 		//LOG_DEBUG << "P = " << p() << std::endl;
@@ -67,7 +66,7 @@ clex::OpenCL::OpenCL(int deviceType, int platformNum, int deviceNum, bool kernel
 	}
 
 	LOG_DEBUG << "Getting devices...";
-	std::vector<Device> tempDevices;
+	std::vector<cl::Device> tempDevices;
 	code2 = clCall(platforms[platformNum].getDevices(deviceType, &tempDevices));
 	LOG_DEBUG << "done!" << std::endl;
 	for (auto& d : tempDevices) {
@@ -77,10 +76,10 @@ clex::OpenCL::OpenCL(int deviceType, int platformNum, int deviceNum, bool kernel
 	}
 	
 	// fixme:
-	std::vector<Device> finalDevices(1, tempDevices[deviceNum]);
+	std::vector<cl::Device> finalDevices(1, tempDevices[deviceNum]);
 	
 	LOG_DEBUG << "Creating context...";
-	context = std::shared_ptr<Context>(new cl::Context(finalDevices, NULL, &OpenCL::errorCallback, NULL, &code3));
+	context = std::shared_ptr<cl::Context>(new cl::Context(finalDevices, NULL, &OpenCL::errorCallback, NULL, &code3));
 	clCall(code3);
 	LOG_DEBUG << "done!" << std::endl;
 

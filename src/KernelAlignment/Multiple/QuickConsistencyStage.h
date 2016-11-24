@@ -3,9 +3,10 @@
 
 #include "Hardware/OpenCl.h"
 #include "Hardware/Kernel.h"
+#include "Alignment/Multiple/ConsistencyStage.h"
+#include "Alignment/Multiple/Configuration.h"
+
 #include "RelaxationSector.h"
-#include "ConsistencyStage.h"
-#include "Configuration.h"
 #include "RelaxationKernelWrapper.h"
 
 #include "Common/Array.h"

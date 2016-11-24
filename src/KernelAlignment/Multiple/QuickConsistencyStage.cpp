@@ -2,13 +2,14 @@
 #include "Common/Log.h"
 #include "Common/MemoryTools.h"
 #include "Common/deterministic_random.h"
-#include "MemoryPool.h"
-#include "KernelAlignment/KernelFactory.h"
 
-#include "GuideTree.h"
+#include "Alignment/Multiple/MemoryPool.h"
+#include "Alignment/Multiple/GuideTree.h"
+#include "Alignment/DataStructures/ContiguousMultiSequence.h"
+#include "Alignment/DataStructures/SparseHelper.h"
+
+#include "KernelAlignment/KernelFactory.h"
 #include "QuickConsistencyStage.h"
-#include "DataStructures/ContiguousMultiSequence.h"
-#include "DataStructures/SparseHelper.h"
 
 #include <thread>
 #include <cmath>

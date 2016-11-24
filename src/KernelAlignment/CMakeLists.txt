@@ -34,18 +34,36 @@ set(KERNEL_FILES
 	Kernels/MultipleProbabilistic.cl
 	Kernels/MultipleFinalization.cl
 	Kernels/MultipleSparse.cl
-	
 )
+
+set(MSA_FILES
+	Multiple/ITasksWave.h
+	Multiple/KernelMSA.cpp
+	Multiple/KernelMSA.h
+	Multiple/KernelSet.h
+	Multiple/KernelSet.cpp
+	Multiple/PosteriorTasksWave.cpp
+	Multiple/PosteriorTasksWave.h
+	Multiple/QuickPosteriorStage.cpp
+	Multiple/QuickPosteriorStage.h
+	Multiple/QuickConsistencyStage.cpp
+	Multiple/QuickConsistencyStage.h
+	Multiple/RelaxationKernelWrapper.h
+	Multiple/RelaxationSector.cpp
+	Multiple/RelaxationSector.h
+	
+	)
 	
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${OpenCL_INCLUDE_DIRS})
 
 source_group("" FILES ${MAIN_FILES})
+source_group("Multiple" FILES ${MSA_FILES})
 source_group("Kernels" FILES ${KERNEL_FILES})
 
-add_library(KernelAlignment STATIC ${MAIN_FILES} ${KERNEL_FILES})
-target_link_libraries(KernelAlignment ${OpenCL_LIBRARIES} ${Boost_LIBRARIES} Common Hardware)
+add_library(KernelAlignment STATIC ${MAIN_FILES} ${KERNEL_FILES} ${MSA_FILES})
+target_link_libraries(KernelAlignment ${OpenCL_LIBRARIES} ${TCMalloc_LIBRARIES} Alignment Common Hardware)
 
 #if (WIN32)
 #	add_custom_command(TARGET KernelRepository 

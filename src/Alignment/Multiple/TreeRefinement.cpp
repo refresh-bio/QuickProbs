@@ -2,6 +2,7 @@
 
 #include "Common/deterministic_random.h"
 #include <vector>
+#include <functional>
 
 using namespace std;
 using namespace quickprobs;

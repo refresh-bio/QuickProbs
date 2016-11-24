@@ -1,7 +1,7 @@
 #pragma once
 #include "Common/mathex.h"
 
-#include "Configuration.h"
+#include "Alignment/Multiple/Configuration.h"
 #include "Hardware/OpenCl.h"
 #include "Hardware/Kernel.h"
 

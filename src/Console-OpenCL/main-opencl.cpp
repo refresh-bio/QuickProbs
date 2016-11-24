@@ -8,10 +8,11 @@
 */
 #include <exception>
 #include "Common/Log.h"
-#include "Alignment/Alignment.h"
 #include "Common/MemoryTools.h"
 #include "Common/rank.h"
 #include "Common/deterministic_random.h"
+
+#include "KernelAlignment/Multiple/KernelMSA.h"
 
 using namespace std;
 
@@ -63,7 +64,7 @@ int main(int argc, char* argv[])
 					LOG_NORMAL << "Warning: cl_khr_fp64 extension not supported. Wrong results possible!" << endl << endl;
 				}
 			} else {
-				LOG_NORMAL << "OpenCL device not specified - CPU variant will be used." << endl << endl;
+				LOG_NORMAL << "OpenCL device not specified - please add -p and -d parameters or use CPU variant." << endl << endl;
 			}
 		
 			// alter parameters
@@ -80,14 +81,12 @@ int main(int argc, char* argv[])
 			TIMER_STOP(configTimer); 
 
 			msa = shared_ptr<quickprobs::KernelMSA>(new quickprobs::KernelMSA(cl, config));
-			
-			StatisticsProvider& globalStats = *msa;
-
+			StatisticsProvider globalStats;
 
 			for (int i = 0; i < config->io.inputFiles.size(); ++i) {
 				msa->operator()(config->io.inputFiles[i], config->io.outputFiles[i]);
-			//	globalStats.addStats(*msa);
-			//	msa->reset();
+				globalStats.addStats(*msa);
+				msa->reset();
 			}
 
 			TIMER_STOP(timer);
@@ -96,8 +95,8 @@ int main(int argc, char* argv[])
 			cerr << "Elapsed time [seconds] = " << timer.seconds();
 
 			cerr << "Saving stats..." << endl;
-			msa->saveStats("execution.stats");	
-			cerr << msa->printStats();
+			globalStats.saveStats("execution.stats");
+			cerr << globalStats.printStats();
 			cerr << endl;
 		}
 	}

@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "ITasksWave.h"
-#include "AuxiliaryStructures.h"
+#include "Alignment/Multiple/AuxiliaryStructures.h"
 #include "Common/Array.h"
 
 namespace quickprobs

@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 		TIMER_CREATE(configTimer);
 		TIMER_START(configTimer);
 		Log::getInstance(Log::LEVEL_NORMAL).enable();
-	
+
 		quickprobs::ExtendedMSA::printWelcome();
 
 		auto config = std::shared_ptr<quickprobs::Configuration>(new quickprobs::Configuration());
@@ -57,12 +57,12 @@ int main(int argc, char* argv[])
 			TIMER_STOP(configTimer); 
 
 			msa = shared_ptr<quickprobs::ExtendedMSA>(new quickprobs::ExtendedMSA(config));
-			StatisticsProvider& globalStats = *msa;
+			StatisticsProvider globalStats;
 
 			for (int i = 0; i < config->io.inputFiles.size(); ++i) {
 				(*msa)(config->io.inputFiles[i], config->io.outputFiles[i]);
-			//	globalStats.addStats(*msa);
-			//	msa->reset();
+				globalStats.addStats(*msa);
+				msa->reset();
 			}
 
 			TIMER_STOP(timer);
@@ -71,8 +71,8 @@ int main(int argc, char* argv[])
 			cerr << "Elapsed time [seconds] = " << timer.seconds();
 
 			cerr << "Saving stats..." << endl;
-			msa->saveStats("execution.stats");	
-			cerr << msa->printStats();
+			globalStats.saveStats("execution.stats");	
+			cerr << globalStats.printStats();
 			cerr << endl;
 		}
 	}

@@ -1,7 +1,7 @@
 #pragma once
 #include "Hardware/OpenCl.h"
 #include "Hardware/Kernel.h"
-#include "PosteriorStage.h"
+#include "Alignment/Multiple/PosteriorStage.h"
 #include "PosteriorTasksWave.h"
 #include "KernelSet.h"
 

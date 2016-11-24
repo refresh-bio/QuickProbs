@@ -21,6 +21,8 @@ public:
 	virtual ~IStats() {}
 	virtual std::string toString() = 0;
 	virtual void add(const IStats& other) = 0;
+
+	virtual std::shared_ptr<IStats> clone() = 0;
 };
 
 template <class T>
@@ -28,8 +30,13 @@ class Stats : public IStats {
 public:
 	typedef T value_type;
 	
+
 	Stats(T value) : value(value) {}
 	
+	std::shared_ptr<IStats> clone() {
+		auto copy = std::make_shared<Stats<T>>(this->value);
+		return copy;
+	}
 	
 	virtual void add(T other) {
 		value += other;
@@ -65,13 +72,13 @@ public:
 	}
 
 	void addStats(const StatisticsProvider& other) {
-	/*	for (const auto &s : other.statistics) {
+		for (const auto &s : other.statistics) {
 			if (this->statistics.find(s.first) == this->statistics.end()) {
-			//	this->statistics[s.first] = std::make_shared<Stats>(*s.second);
+				this->statistics[s.first] = s.second->clone();
 			} else {
 				this->statistics[s.first]->add(*s.second);
 			}
-		}*/
+		}
 	}
 
 	void joinStats(const StatisticsProvider& other);

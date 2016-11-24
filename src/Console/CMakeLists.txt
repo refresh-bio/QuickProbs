@@ -19,7 +19,7 @@ add_executable(Console ${SRC_FILES})
 target_link_libraries(Console 
 	debug ${TCMalloc_LIBRARIES_DEBUG} 
 	optimized ${TCMalloc_LIBRARIES_RELEASE}
-	general ${Extra_LIBRARIES} ${Boost_LIBRARIES} Alignment KernelRepository Common Hardware)
+	general ${Extra_LIBRARIES} Alignment Common Hardware)
 
 set_target_properties(Console PROPERTIES OUTPUT_NAME ${EXE_NAME} ) 
 set(EXECUTABLE_OUTPUT_PATH ${OUT_PATH})

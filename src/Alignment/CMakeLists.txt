@@ -56,8 +56,6 @@ set(MSA_POSTERIOR_FILES
 	Multiple/BufferSet.h
 	Multiple/IAlgorithmStage.h
 	Multiple/IPartitionFunctionParams.h
-	Multiple/KernelSet.h
-	Multiple/KernelSet.cpp
 	Multiple/ParallelProbabilisticModel.cpp
 	Multiple/ParallelProbabilisticModel.h
 	Multiple/ExpPartitionFunctionParams.h
@@ -66,25 +64,17 @@ set(MSA_POSTERIOR_FILES
 	Multiple/PartitionFunction.h
 	Multiple/PosteriorStage.cpp
 	Multiple/PosteriorStage.h
-	Multiple/PosteriorTasksWave.cpp
-	Multiple/PosteriorTasksWave.h
 	Multiple/ProbabilisticParams.cpp
 	Multiple/ProbabilisticParams.h
 	Multiple/ProbabilisticModel.h
 	Multiple/ProbabilisticModel.cpp
-	Multiple/QuickPosteriorStage.cpp
-	Multiple/QuickPosteriorStage.h
+
 )
 
 set(MSA_CONSISTENCY_FILES
 	Multiple/ConsistencyStage.cpp
 	Multiple/ConsistencyStage.h
-	Multiple/QuickConsistencyStage.cpp
-	Multiple/QuickConsistencyStage.h
-	Multiple/RelaxationKernelWrapper.h
 	Multiple/RelaxationTask.cpp
-	Multiple/RelaxationSector.cpp
-	Multiple/RelaxationSector.h
 	Multiple/Selectivity.h
 )
 
@@ -133,9 +123,6 @@ set(MSA_MAIN_FILES
 	Multiple/ConfigurationHelper.h
 	Multiple/ExtendedMSA.cpp
 	Multiple/ExtendedMSA.h
-	Multiple/ITasksWave.h
-	Multiple/KernelMSA.cpp
-	Multiple/KernelMSA.h
 	Multiple/ScoreType.h	
 	)
 
@@ -158,5 +145,5 @@ source_group("" FILES Alignment.h)
 
 set(ALL_FILES Alignment.h ${PAIRWISE_FILES} ${DATA_STRUCTURES_FILES} ${MSA_CONSISTENCY_FILES} ${MSA_FINAL_FILES} ${MSA_PHYLOGENY_FILES} ${MSA_POSTERIOR_FILES} ${MSA_MAIN_FILES})
 
-add_library(Alignment STATIC ${ALL_FILES} ${KERNEL_WRAPPER_FILES})
-target_link_libraries(Alignment ${OpenCL_LIBRARIES} ${Boost_LIBRARIES} ${TCMalloc_LIBRARIES} KernelRepository Common Hardware)
+add_library(Alignment STATIC ${ALL_FILES} )
+target_link_libraries(Alignment ${TCMalloc_LIBRARIES} Common Hardware)
