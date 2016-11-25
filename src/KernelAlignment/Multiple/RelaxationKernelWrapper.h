@@ -35,7 +35,7 @@ public:
 
 		defines.push_back("STRIPE_COUNT=" + std::to_string(stripeCount));
 		defines.push_back("STRIPE_LENGTH=" + std::to_string(stripeLength));
-		defines.push_back("STRIPE_LENGTH_LOG2=" + std::to_string((int)mathex::log2(stripeLength)));
+		defines.push_back("STRIPE_LENGTH_LOG2=" + std::to_string((int)std::log2(stripeLength)));
 
 		obj = KernelFactory::instance(cl).create(files, name, defines);
 	}

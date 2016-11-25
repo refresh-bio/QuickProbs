@@ -28,7 +28,7 @@ float quickprobs::EntropyEvaluator::operator()(const MultiSequence& profile, int
 {
 	unsigned int commonProperties = 0xffffffff;
 	unsigned int allProperties = 0x0;
-	float lambda = 1.0f / mathex::log2(alphabetSize);
+	float lambda = 1.0f / std::log2(alphabetSize);
 	
 	// for each symbol in column
 	std::vector<float> histogram(256, 0.5); // initialise with 0.5
@@ -60,7 +60,7 @@ float quickprobs::EntropyEvaluator::operator()(const MultiSequence& profile, int
 	for (int i = 0; i < alphabetSize; ++i) {
 		char s = alphabet[i];
 		double ps = (double)histogram[s] / symbolsCount;
-		entropy -= lambda * (float)(ps * mathex::log2(ps));
+		entropy -= lambda * (float)(ps * std::log2(ps));
 	}
 
 	// gap score

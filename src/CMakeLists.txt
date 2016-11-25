@@ -12,40 +12,27 @@ else()
 	message(SEND_ERROR "Only 64 bit platforms are supported!")
 endif()
 
-set(Boost_USE_STATIC_LIBS ON) 
-set(Boost_USE_MULTITHREADED ON)  
-set(Boost_USE_STATIC_RUNTIME OFF) 
 set(Extra_LIBRARIES "")
 
 set(Enable_DevMode OFF)
 
 
 if (WIN32)
-	# configure following option to make boost working
-	# set(Boost_PARENT_DIR "E:/SDKs/boost_1_61_0" CACHE STRING "Boost parent directory")
-	
-	#set(Boost_LIB_DIR "${Boost_PARENT_DIR}/lib64-msvc-14.0" CACHE STRING "Boost library directory")
-	#set(Boost_INCLUDE_DIR "${Boost_PARENT_DIR}")
-	#set(BOOST_LIBRARYDIR "${Boost_LIB_DIR}")
-	set(Boost_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../libs/boost" CACHE STRING "OpenCL include directory")
+	set(Boost_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../libs/boost" CACHE STRING "Boost include directory")
 	set(OpenCL_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../libs/opencl/include" CACHE STRING "OpenCL include directory")
 	set(OpenCL_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs/opencl/x86_64" CACHE STRING "OpenCL library directory")
 	set(TCMalloc_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs/tcmalloc/lib64" CACHE STRING "TCMalloc library directory")
 
-#	set(EXTRA_LINKER_FLAGS "/INCLUDE:__tcmalloc")
+	set(EXTRA_LINKER_FLAGS "/INCLUDE:__tcmalloc")
 	set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /openmp" )
 	set(Extra_LIBRARIES "psapi.lib")
 	
-	#find_library(TCMalloc_LIBRARIES_DEBUG tcmalloc_minimal_debug PATHS ${TCMalloc_LIBRARYDIR})
-	#find_library(TCMalloc_LIBRARIES_RELEASE tcmalloc_minimal PATHS ${TCMalloc_LIBRARYDIR})
-	
-	set(TCMalloc_LIBRARIES_DEBUG "")
-	set(TCMalloc_LIBRARIES_RELEASE "")
+	find_library(TCMalloc_LIBRARIES_DEBUG libtcmalloc_minimal_debug PATHS ${TCMalloc_LIBRARYDIR})
+	find_library(TCMalloc_LIBRARIES_RELEASE libtcmalloc_minimal PATHS ${TCMalloc_LIBRARYDIR})
 	
 else()
 	
-	#set(Boost_INCLUDE_DIR "/usr/local/include")
-	#set(BOOST_LIBRARYDIR "/usr/local/lib")
+	#set(Boost_INCLUDE_DIRS "/usr/local/include")
 	set(OpenCL_INCLUDE_DIRS "/usr/include" CACHE STRING "OpenCL include directory")
 	
 	set(OpenCL_LIBRARYDIR "/opt/AMDAPP/lib/x86_64" CACHE STRING "OpenCL library directory")
@@ -62,8 +49,6 @@ endif()
 add_definitions(-DQUICKPROBS_VERSION=${QUICKPROBS_VERSION})
 
 find_library(OpenCL_LIBRARIES OpenCL PATHS ${OpenCL_LIBRARYDIR})
-#find_package(Boost COMPONENTS filesystem program_options system)
-	
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_LINKER_FLAGS}" )	
 add_subdirectory(Common)

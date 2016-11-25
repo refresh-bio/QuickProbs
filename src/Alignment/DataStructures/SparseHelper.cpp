@@ -183,7 +183,7 @@ int SparseHelper::filterGlobal( Array<SparseMatrixType*>& matrices, float remain
 
 	::size_t totalElements = sparseReference ? totalSparseElements : totalDenseElements;
 
-	int toRetain = totalElements * remainFraction; // compute number of elements to retain
+	int toRetain = static_cast<int>(totalElements * remainFraction); // compute number of elements to retain
 	float cutoff = 0;
 
 	// iterate over buckets to determine cutoff

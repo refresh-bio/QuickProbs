@@ -32,7 +32,7 @@ std::unique_ptr<MultiSequence> quickprobs::ColumnRefinement::refine(
 		auto profileTwo = alignment->extractSubset(groupTwo);
 		
 		// refine recursively
-		int maxDepth = std::min(config->algorithm.refinement.maxDepth, (int)mathex::log2(distances.size()));
+		int maxDepth = std::min(config->algorithm.refinement.maxDepth, (int)std::log2(distances.size()));
 		if (depth < maxDepth) {
 			profileOne = refine(tree, seqsWeights, distances, sparseMatrices, model, std::move(profileOne), depth + 1);
 			profileTwo = refine(tree, seqsWeights, distances, sparseMatrices, model, std::move(profileTwo), depth + 1);

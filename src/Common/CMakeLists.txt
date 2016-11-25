@@ -13,6 +13,7 @@ set(SRC_FILES
 	Named.h
 	PlacementAllocator.h
 	Printable.h
+	ProgramOptions.cpp
 	ProgramOptions.h
 	StatisticsProvider.cpp
 	StatisticsProvider.h

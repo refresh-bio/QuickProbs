@@ -881,6 +881,7 @@ std::unique_ptr<std::vector<float>> ProbabilisticModel::buildPosterior(
 	// for each s in align1
 	for (int i = 0; i < align1.count(); i++) {
 		int first = align1.GetSequence(i)->GetLabel();
+		// FIXME:
 		int w1 = seqsWeights[first];
 		auto mapping1 = align1.GetSequence(i)->getMapping();
 		// for each t in align2

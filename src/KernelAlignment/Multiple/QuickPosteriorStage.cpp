@@ -168,8 +168,8 @@ void QuickPosteriorStage::run(
 	}
 	// fixme: sparse matrix allocation overhead
 	double overhead = 1.15;
-	int64_t reservedBytes = overhead * minSparseBytes + cl->mainDevice->info->globalMemSize;
-	int64_t extraSparseBytes = (int64_t)(config->hardware.memoryLimitMb * 1e6) - reservedBytes;
+	int64_t reservedBytes = static_cast<int64_t>(overhead * minSparseBytes + cl->mainDevice->info->globalMemSize);
+	int64_t extraSparseBytes = static_cast<int64_t>(config->hardware.memoryLimitMb * 1e6) - reservedBytes;
 
 	double fillRate = (double)(extraSparseBytes) / (this->denseBytes - minSparseBytes);
 	fillRate = std::min(std::max(0.0, fillRate / overhead), 1.0);
@@ -483,7 +483,7 @@ void QuickPosteriorStage::run(
 					SparseMatrixType* matrix = new SparseMatrixType(cms.lengths[i], cms.lengths[j]);
 					matrices[i][j] = matrix;
 					distances[i][j] = matrix->filterAndUnpack<OpenCLSparseMatrix>(
-						currentAuxiliary + task.offset_Aij, fillRate);
+						currentAuxiliary + task.offset_Aij, static_cast<float>(fillRate));
 
 					bytes += matrix->bytesNeeded();
 				}

@@ -1,12 +1,11 @@
 #pragma once
+#undef max
 
 #include <string>
 #include <iostream>
-#include <istream>
 #include <sstream>
 #include <vector>
 #include <memory>
-#include <list>
 #include <map>
 #include <algorithm>
 #include <set>
@@ -63,9 +62,14 @@ public:
 class ProgramOptions
 {
 public:
-	ProgramOptions(const std::string & executable) : executable(executable)
+	ProgramOptions(const std::string & executable) : executable(executable), maxNameLength(0)
 	{
 
+	}
+
+	bool exists(const std::string & name) const
+	{
+		return options.find(name) != options.end();
 	}
 
 	/// <summary>
@@ -86,6 +90,7 @@ public:
 			options[shortName] = option;
 			shortNames.insert(shortName);
 		}
+		maxNameLength = std::max(maxNameLength, name.length());
 	}
 
 	template <typename Type>
@@ -101,6 +106,8 @@ public:
 			options[shortName] = option;
 			shortNames.insert(shortName);
 		}
+
+		maxNameLength = std::max(maxNameLength, name.length());
 	}
 
 	
@@ -109,6 +116,8 @@ public:
 	{
 		auto option = std::shared_ptr<AbstractOption>(new Option<Type>(name, desc, false));
 		positionalOptions.push_back(option);
+
+		maxNameLength = std::max(maxNameLength, name.length());
 	}
 
 	void addSwitch(const std::string & name, const std::string & desc, bool developer)
@@ -123,69 +132,14 @@ public:
 			options[shortName] = option;
 			shortNames.insert(shortName);
 		}
+
+		maxNameLength = std::max(maxNameLength, name.length());
 	}
 
 
-	bool parse(int argc, char *argv[])
-	{
-		// copy parameters to temporary collection
-		std::list<std::string> args(argc - 1);
-		std::transform(argv + 1, argv + argc, args.begin(), [](char * a)->std::string { return std::string(a); });
+	bool parse(int argc, char *argv[]);
 
-		// parse normal options
-		for (auto it = args.begin(); it != args.end(); ) {
-			std::string param = *it;
-
-			if (param[0] != '-') {
-				++it;
-				continue;
-			}
-
-			while (param[0] == '-') {
-				param = param.substr(1);
-			}
-			
-			if (options.find(param) != options.end()) {
-				it = args.erase(it); // remove parsed option from collection
-				auto option = options[param];
-
-				// check if option is a switch
-				auto switchOption = std::dynamic_pointer_cast<Switch>(option);
-				if (switchOption) {
-					switchOption->set(true);
-
-				} else {
-					const std::string& value = *it;
-					if (option->parse(value)) {
-						it = args.erase(it); // remove parsed value from collection
-					} else {
-						// unable to parse
-						
-					}
-				}
-			}
-		}
-
-		// everything left are positional options
-		int posId = 0;
-		
-		for (auto it = args.begin(); it != args.end() && posId != positionalOptions.size(); ++posId, ++it) {
-			std::string param = *it;
-			positionalOptions[posId]->parse(param);
-		}
-
-		if (posId < positionalOptions.size()) {
-			return false;
-		}
-		
-		return true;
-	}
-
-	bool exists(const std::string & name) const
-	{
-		return options.find(name) != options.end();
-	}
-
+	
 	template <typename T>
 	bool get(const std::string & name, T &result)
 	{
@@ -221,37 +175,14 @@ public:
 		return var;
 	}
 
-	const std::string toString(bool showDeveloperOptions) const
-	{
-		std::ostringstream out;
-
-		// print command line
-		out << "Options:" << std::endl;
-		for (const auto& o : options) {
-			if (!o.second->getIsDeveloper() && shortNames.find(o.first) != shortNames.end()) {
-				std::cout << o.second->getName() << ": " << o.second->getDescription() << std::endl;
-			}
-		}
-		
-		out << "Developer options:" << std::endl;
-
-		if (showDeveloperOptions) {
-			for (const auto& o : options) {
-				if (o.second->getIsDeveloper()) {
-					out << o.second->getName() << ": " << o.second->getDescription() << std::endl;
-				}
-			}
-		}
-
-		return out.str();
-	}
+	std::string toString(bool showDeveloperOptions) const;
 
 private:
 	std::map<std::string, std::shared_ptr<AbstractOption>> options;
 	std::set<std::string> shortNames;
-	
 	std::vector<std::shared_ptr<AbstractOption>> positionalOptions;
 
-	std::string executable;
+	size_t maxNameLength;
 
+	std::string executable;
 };

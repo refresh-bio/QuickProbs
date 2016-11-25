@@ -14,10 +14,11 @@ public:
 
 	std::string toString() {
 		switch (value) {
-		case UPGMA: return "upgma";
-		case SingleLinkage: return "slink";
-		case Chained: return "chained";
+			case UPGMA: return "upgma";
+			case SingleLinkage: return "slink";
+			case Chained: return "chained";
 		}
+		return "invalid";
 	}
 
 	bool operator==(TreeKind::Enumeration ref) { return value == ref; }
@@ -49,6 +50,7 @@ public:
 			case Max: return "max";
 			case Avg: return "avg";
 		}
+		return "invalid";
 	}
 
 	bool operator==(SelectivityFunction::Enumeration ref) { return value == ref; }
@@ -78,6 +80,7 @@ public:
 			case SelectivityNormalization::RankedStochastic: return "ranked-stochastic";
 			case SelectivityNormalization::RankedRowStochastic: return "ranked-row-stochastic";
 		}
+		return "invalid";
 	}
 
 	bool operator==(SelectivityNormalization::Enumeration ref) { return value == ref; }
@@ -106,6 +109,7 @@ public:
 			case SelectivityMode::Seed: return "seed";
 			case SelectivityMode::Similarity: return "similarity";
 		} 
+		return "invalid";
 	}
 
 	bool operator==(SelectivityMode::Enumeration ref) { return value == ref; }
@@ -140,6 +144,7 @@ public:
 			case SelectivityFilter::TriangleHighpass: return "triangle-highpass";
 			case SelectivityFilter::HomographLowpass: return "homograph-lowpass";
 		} 
+	return "invalid";
 	}
 
 	bool operator==(SelectivityFilter::Enumeration ref) { return value == ref; }
@@ -168,6 +173,7 @@ public:
 			case SectorCopy::Row: return "row";
 			case SectorCopy::None: return "none";
 		}
+		return "invalid";
 	}
 
 	bool operator==(SectorCopy::Enumeration ref) { return value == ref; }
@@ -197,6 +203,7 @@ public:
 			case Column: return "column";
 			case Tree: return "tree";
 		}
+		return "invalid";
 	}
 
 	bool operator==(RefinementType::Enumeration ref) { return value == ref; }

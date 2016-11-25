@@ -247,7 +247,7 @@ bool Configuration::parse(int argc, char** argv)
 				for (auto it = fs::directory_iterator(inputPath); it != fs::directory_iterator(); ++it) {
 					auto file = it->path().filename();
 					io.inputFiles.push_back(it->path().string());
-					io.outputFiles.push_back(outputPath.string() + "\\" + file.string());
+					io.outputFiles.push_back(outputPath.string() + "\\" + file);
 				}
 			}
 		} else {

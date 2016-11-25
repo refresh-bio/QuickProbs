@@ -78,7 +78,7 @@ std::unique_ptr<quickprobs::MultiSequence> quickprobs::ExtendedMSA::doAlign(Mult
 	TIMER_CREATE(totalTimer);
 	TIMER_START(totalTimer);
 
-	const int numSeqs = sequences->count();
+	const size_t numSeqs = sequences->count();
 	ISequenceSet* set;
 	ContiguousMultiSequence cms(*sequences);
 	set = &cms;
@@ -121,10 +121,10 @@ std::unique_ptr<quickprobs::MultiSequence> quickprobs::ExtendedMSA::doAlign(Mult
 		consistencyDistances = Array<float>(numSeqs);
 		std::fill(consistencyDistances.getData().begin(), consistencyDistances.getData().end(), std::numeric_limits<float>::max());
 
-		std::vector<int> seedIds(config->algorithm.consistency.selectivity);
+		std::vector<int> seedIds(static_cast<size_t>(config->algorithm.consistency.selectivity));
 		std::mt19937 eng;
 		det_uniform_int_distribution<int> dist(0, numSeqs - 1);
-		std::generate(seedIds.begin(), seedIds.end(), [&eng, &dist]()->float {
+		std::generate(seedIds.begin(), seedIds.end(), [&eng, &dist]()->int {
 			return dist(eng);
 		});
 
@@ -281,9 +281,9 @@ void quickprobs::ExtendedMSA::degenerateDistances(Array<float> &distances)
 void ExtendedMSA::printWelcome() {
 	LOG_NORMAL
 		<< "*************************************************************************************" << endl
-		<< "\t QuickProbs " << int(QUICKPROBS_VERSION) << " (" << __DATE__ << ", " << __TIME__ << ")" << endl
-		<< "\t QuickProbs is a fast and accurate algorithm for multiple sequence alignment" << endl
-		<< "\t suited for GPUs." << endl // It uses novel column-based refinement and selective consistency." << endl
+		<< "\t QuickProbs " << QUICKPROBS_VERSION << " (" << __DATE__ << ", " << __TIME__ << ")" << endl
+		<< "\t Accurate and scalable algorithm for multiple sequence alignment" << endl
+		<< "\t with column-oriented refinement and selective consisntency." << endl
 		<< "\t Authors: Adam Gudys (adam.gudys@polsl.pl) and Sebastian Deorowicz." << endl
 		<< "*************************************************************************************" << endl << endl;
 }
