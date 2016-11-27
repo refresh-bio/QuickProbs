@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 				<< "Process current virtual = " << MemoryTools::processCurrentVirtual() << endl
 				<< "Process peak virtual = " << MemoryTools::processPeakVirtual() << endl;
 
-			LOG_NORMAL << "OpenCL device not specified - CPU variant will be used." << endl << endl;
+			LOG_NORMAL << "Running CPU variant." << endl << endl;
 			
 			// alter parameters
 			config->optimisation.useDoublePartition = true;

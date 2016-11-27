@@ -16,7 +16,7 @@ set(SRC_FILES
 	PlatformInfo.h)
 
 include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${OpenCL_INCLUDE_DIRS})	
+include_directories(${Extra_INCLUDE_DIRS})	
 			
 source_group("" FILES ${SRC_FILES})
 add_library(Hardware STATIC ${SRC_FILES})

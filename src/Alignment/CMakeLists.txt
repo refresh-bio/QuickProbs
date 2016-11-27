@@ -129,9 +129,7 @@ set(MSA_MAIN_FILES
 
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})	
-include_directories(${Boost_INCLUDE_DIRS})
-include_directories(${OpenCL_INCLUDE_DIRS})
-include_directories(${TCMalloc_INCLUDE_DIRS})
+include_directories(${Extra_INCLUDE_DIRS})
 	
 #	
 source_group("Pairwise" FILES ${PAIRWISE_FILES})

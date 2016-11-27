@@ -12,34 +12,23 @@ else()
 	message(SEND_ERROR "Only 64 bit platforms are supported!")
 endif()
 
-set(Extra_LIBRARIES "")
-
-set(Enable_DevMode OFF)
-
+set(System_LIBRARIES "")
+set(Extra_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../libs/include" CACHE STRING "External include directory")
+set(Extra_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs/bins" CACHE STRING "External library directory")
 
 if (WIN32)
-	set(Boost_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../libs/boost" CACHE STRING "Boost include directory")
-	set(OpenCL_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/../libs/opencl/include" CACHE STRING "OpenCL include directory")
-	set(OpenCL_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs/opencl/x86_64" CACHE STRING "OpenCL library directory")
 	set(TCMalloc_LIBRARYDIR "${CMAKE_SOURCE_DIR}/../libs/tcmalloc/lib64" CACHE STRING "TCMalloc library directory")
-
 	set(EXTRA_LINKER_FLAGS "/INCLUDE:__tcmalloc")
 	set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /openmp" )
-	set(Extra_LIBRARIES "psapi.lib")
+	set(System_LIBRARIES "psapi.lib")
 	
 	find_library(TCMalloc_LIBRARIES_DEBUG libtcmalloc_minimal_debug PATHS ${TCMalloc_LIBRARYDIR})
 	find_library(TCMalloc_LIBRARIES_RELEASE libtcmalloc_minimal PATHS ${TCMalloc_LIBRARYDIR})
 	
 else()
-	
-	#set(Boost_INCLUDE_DIRS "/usr/local/include")
-	set(OpenCL_INCLUDE_DIRS "/usr/include" CACHE STRING "OpenCL include directory")
-	
-	set(OpenCL_LIBRARYDIR "/opt/AMDAPP/lib/x86_64" CACHE STRING "OpenCL library directory")
-
 	set(TCMalloc_LIBRARYDIR "/usr/lib" CACHE STRING "TCMalloc library directory")
 	set(EXTRA_LINKER_FLAGS "-ltcmalloc")	
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fopenmp -std=c++0x")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fopenmp -std=c++11")
 	
 	find_library(TCMalloc_LIBRARIES_DEBUG libtcmalloc_minimal_debug.a PATHS ${TCMalloc_LIBRARYDIR})
 	find_library(TCMalloc_LIBRARIES_RELEASE libtcmalloc_minimal.a PATHS ${TCMalloc_LIBRARYDIR})
@@ -48,7 +37,7 @@ endif()
 
 add_definitions(-DQUICKPROBS_VERSION=${QUICKPROBS_VERSION})
 
-find_library(OpenCL_LIBRARIES OpenCL PATHS ${OpenCL_LIBRARYDIR})
+find_library(OpenCL_LIBRARIES OpenCL PATHS ${Extra_LIBRARYDIR})
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${EXTRA_LINKER_FLAGS}" )	
 add_subdirectory(Common)

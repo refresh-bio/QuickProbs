@@ -38,7 +38,8 @@ int main(int argc, char* argv[])
 				<< config->printOptions(false) << endl
 				<< "Following OpenCL devices have been found:" << endl 
 				<< clex::OpenCL::listDevices(clex::OpenCL::ANY_DEVICE) << endl << endl; 	
-		} else {
+		}
+		else {
 
 			if (config->io.enableVerbose) {
 				Log::getInstance(Log::LEVEL_DEBUG).enable();
@@ -48,13 +49,13 @@ int main(int argc, char* argv[])
 
 			LOG_DEBUG << "Memory report:" << endl
 				<< "System total physical = " << MemoryTools::systemTotalPhysical() << endl
-			//	<< "System available physical = " MemoryTools::systemAvailablePhysical() << endl
+				//	<< "System available physical = " MemoryTools::systemAvailablePhysical() << endl
 				<< "Process current virtual = " << MemoryTools::processCurrentVirtual() << endl
 				<< "Process peak virtual = " << MemoryTools::processPeakVirtual() << endl;
 
 			if (config->hardware.platformNum >= 0 && config->hardware.deviceNum >= 0) {
-				LOG_NORMAL << "Following OpenCl device will be used: ";
- 		
+				LOG_NORMAL << "Running OpenCl variant. Following device will be used: ";
+
 				cl = std::shared_ptr<clex::OpenCL>(new clex::OpenCL(
 					clex::OpenCL::ANY_DEVICE, config->hardware.platformNum, config->hardware.deviceNum, config->optimisation.kernelProfiling));
 				LOG_NORMAL << cl->mainDevice->info->getName() << std::endl;
@@ -63,42 +64,41 @@ int main(int argc, char* argv[])
 				if (!cl->mainDevice->info->supportsExtension("cl_khr_fp64")) {
 					LOG_NORMAL << "Warning: cl_khr_fp64 extension not supported. Wrong results possible!" << endl << endl;
 				}
-			} else {
+
+				// alter parameters
+				if (cl->mainDevice->info->vendor == clex::NVidia) {
+					config->optimisation.divideHmmKernels = true;
+					config->optimisation.localHmmParams = true;
+					config->optimisation.localPartitionParams = true;
+				}
+
+				LOG_DEBUG << "CONFIGURATION" << endl << config->toString() << endl << endl;
+
+				TIMER_STOP(configTimer);
+
+				msa = shared_ptr<quickprobs::KernelMSA>(new quickprobs::KernelMSA(cl, config));
+				StatisticsProvider globalStats;
+
+				for (int i = 0; i < config->io.inputFiles.size(); ++i) {
+					msa->operator()(config->io.inputFiles[i], config->io.outputFiles[i]);
+					globalStats.addStats(*msa);
+					msa->reset();
+				}
+
+				TIMER_STOP(timer);
+				globalStats.writeStats("time.0.3-config", configTimer.seconds());
+				globalStats.writeStats("time.whole", timer.seconds());
+				cerr << "Elapsed time [seconds] = " << timer.seconds();
+
+				cerr << "Saving stats..." << endl;
+				globalStats.saveStats("execution.stats");
+				cerr << globalStats.printStats();
+				cerr << endl;
+			}
+			else {
 				LOG_NORMAL << "OpenCL device not specified - please add -p and -d parameters or use CPU variant." << endl << endl;
 			}
-		
-			// alter parameters
-			if (cl == nullptr) {
-				config->optimisation.useDoublePartition = true;
-			} else if (cl->mainDevice->info->vendor == clex::NVidia) {
-				config->optimisation.divideHmmKernels = true;
-				config->optimisation.localHmmParams = true;
-				config->optimisation.localPartitionParams = true;
-			}
-		
-			LOG_DEBUG << "CONFIGURATION" << endl << config->toString() << endl << endl;
-
-			TIMER_STOP(configTimer); 
-
-			msa = shared_ptr<quickprobs::KernelMSA>(new quickprobs::KernelMSA(cl, config));
-			StatisticsProvider globalStats;
-
-			for (int i = 0; i < config->io.inputFiles.size(); ++i) {
-				msa->operator()(config->io.inputFiles[i], config->io.outputFiles[i]);
-				globalStats.addStats(*msa);
-				msa->reset();
-			}
-
-			TIMER_STOP(timer);
-			globalStats.writeStats("time.0.3-config", configTimer.seconds());
-			globalStats.writeStats("time.whole", timer.seconds());
-			cerr << "Elapsed time [seconds] = " << timer.seconds();
-
-			cerr << "Saving stats..." << endl;
-			globalStats.saveStats("execution.stats");
-			cerr << globalStats.printStats();
-			cerr << endl;
-		}
+		}		
 	}
 	catch (std::runtime_error &ex) {
 		std::cerr << ex.what() << endl;

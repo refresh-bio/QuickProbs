@@ -145,7 +145,7 @@ public:
 	{
 		auto it = options.find(name);
 		if (it != options.end()) {
-			auto option = dynamic_pointer_cast<Option<T>>(it->second);
+			auto option = std::dynamic_pointer_cast<Option<T>>(it->second);
 			if (option->getIsSet()) {
 				result = option->get();
 				return true;
@@ -154,7 +154,7 @@ public:
 
 		auto it2 = std::find_if(positionalOptions.begin(), positionalOptions.end(), [&name](std::shared_ptr<AbstractOption>& o) { return o->getName() == name; });
 		if (it2 != positionalOptions.end()) {
-			auto option = dynamic_pointer_cast<Option<T>>(*it2);
+			auto option = std::dynamic_pointer_cast<Option<T>>(*it2);
 			if (option->getIsSet()) {
 				result = option->get();
 				return true;

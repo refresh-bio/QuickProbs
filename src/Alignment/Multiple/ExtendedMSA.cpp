@@ -48,7 +48,6 @@ ExtendedMSA::ExtendedMSA(std::shared_ptr<Configuration> config)
 		LOG_NORMAL << "Statically set " << config->hardware.numThreads << " OpenMP threads." << endl << endl;
 	}
 
-	LOG_NORMAL << "OpenCL platform and device not specified - using pure CPU version." << endl;
 	posteriorStage = std::shared_ptr<PosteriorStage>(new PosteriorStage(config));
 	consistencyStage = std::shared_ptr<ConsistencyStage>(new ConsistencyStage(config));
 	constructionStage = std::shared_ptr<ConstructionStage>(new ConstructionStage(config));
