@@ -3,9 +3,15 @@
 
 #include <iostream>
 #include <fstream>
-#include <filesystem>
 
-namespace fs = std::tr2::sys;
+#ifdef WIN32
+	#include <filesystem>
+	namespace fs = std::tr2::sys;
+#else 
+	#include <experimental/filesystem>
+	namespace fs = std::experimental::filesystem;
+#endif
+	
 using namespace std;
 using namespace quickprobs;
 
@@ -247,7 +253,7 @@ bool Configuration::parse(int argc, char** argv)
 				for (auto it = fs::directory_iterator(inputPath); it != fs::directory_iterator(); ++it) {
 					auto file = it->path().filename();
 					io.inputFiles.push_back(it->path().string());
-					io.outputFiles.push_back(outputPath.string() + "\\" + file);
+					io.outputFiles.push_back(outputPath.string() + "//" + file.c_str());
 				}
 			}
 		} else {

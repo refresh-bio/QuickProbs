@@ -27,9 +27,10 @@ if (WIN32)
 	
 else()
 	set(TCMalloc_LIBRARYDIR "/usr/lib" CACHE STRING "TCMalloc library directory")
-	set(EXTRA_LINKER_FLAGS "-ltcmalloc")	
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fopenmp -std=c++11")
-	
+	set(EXTRA_LINKER_FLAGS " -std=c++11 -ltcmalloc -lstdc++fs")	
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -fopenmp -std=c++11 -lstdc++fs")
+	set(System_LIBRARIES "stdc++fs")	
+
 	find_library(TCMalloc_LIBRARIES_DEBUG libtcmalloc_minimal_debug.a PATHS ${TCMalloc_LIBRARYDIR})
 	find_library(TCMalloc_LIBRARIES_RELEASE libtcmalloc_minimal.a PATHS ${TCMalloc_LIBRARYDIR})
 	

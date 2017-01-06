@@ -144,4 +144,4 @@ source_group("" FILES Alignment.h)
 set(ALL_FILES Alignment.h ${PAIRWISE_FILES} ${DATA_STRUCTURES_FILES} ${MSA_CONSISTENCY_FILES} ${MSA_FINAL_FILES} ${MSA_PHYLOGENY_FILES} ${MSA_POSTERIOR_FILES} ${MSA_MAIN_FILES})
 
 add_library(Alignment STATIC ${ALL_FILES} )
-target_link_libraries(Alignment ${TCMalloc_LIBRARIES} Common Hardware)
+target_link_libraries(Alignment ${TCMalloc_LIBRARIES} Common Hardware ${System_LIBRARIES})

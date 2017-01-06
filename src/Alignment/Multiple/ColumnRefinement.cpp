@@ -172,7 +172,7 @@ void quickprobs::ColumnRefinement::updateColumnScores(
 	}
 
 	std::stable_sort(columnScores.begin(), columnScores.end(), [numSeqs](const std::pair<int,float> &a, const std::pair<int,float>& b){
-		return abs(numSeqs / 2 - a.second) > abs(numSeqs / 2 - b.second);
+		return fabs((float)numSeqs / 2 - a.second) > fabs((float)numSeqs / 2 - b.second);
 	});
 
 	// erase elements
