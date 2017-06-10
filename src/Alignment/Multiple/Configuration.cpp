@@ -5,11 +5,12 @@
 #include <fstream>
 
 #ifdef WIN32
-	#include <filesystem>
-	namespace fs = std::tr2::sys;
+#include "Common/dirent.h" 
+#undef min
+#undef max
 #else 
-	#include <experimental/filesystem>
-	namespace fs = std::experimental::filesystem;
+#include <dirent.h>
+#include <sys/stat.h>
 #endif
 	
 using namespace std;
@@ -110,7 +111,6 @@ void Configuration::setDefaults()
 
 	algorithm.consistency.saturation = 1e-6;
 
-	
 	algorithm.consistency.selfweight = -1.0;
 	algorithm.consistency.smallSelfweight = 3.0;
 	algorithm.consistency.largeSelfweight = 3.0;
@@ -245,7 +245,29 @@ bool Configuration::parse(int argc, char** argv)
 		options.get("device", hardware.deviceNum);
 		options.get("mem-limit", hardware.memoryLimitMb);
 
+		DIR *inputDir = opendir(io.input.c_str());
+		DIR *outputDir = opendir(io.output.c_str());
+		struct dirent *ent;
+		if ((inputDir != NULL) && (outputDir != NULL)) {
+			while ((ent = readdir(inputDir)) != NULL) {
+				struct stat info;
+				string inputPath = io.input + "/" + string(ent->d_name);
+				stat(inputPath.c_str(), &info);
+				// only for regular files
+				if (S_ISREG(info.st_mode)) {
+					io.inputFiles.push_back(inputPath);
+					io.outputFiles.push_back(io.output + "/" + string(ent->d_name));
+				}
+			}
+			closedir(inputDir);
+			closedir(outputDir);
+		}
+		else {
+			io.inputFiles.push_back(io.input);
+			io.outputFiles.push_back(io.output);
+		}
 
+		/* std::filesystem variant
 		fs::path inputPath(io.input);
 		fs::path outputPath(io.output);
 		if (fs::is_directory(inputPath)) {
@@ -260,6 +282,7 @@ bool Configuration::parse(int argc, char** argv)
 			io.inputFiles.push_back(io.input);
 			io.outputFiles.push_back(io.output);
 		}
+		*/
 
 		// optimisation parameters
 		//options.get("kernel-profiling", optimisation.kernelProfiling);

@@ -6,6 +6,7 @@ set(SRC_FILES
 	dbgnew.h
 	deterministic_random.cpp
 	deterministic_random.h
+	dirent.h
 	mathex.cpp
 	mathex.h
 	Log.h
