@@ -641,4 +641,13 @@ Todo:
 2.  Fix indeterministic behaviour on Oxbench ___12 set. 
 3.	Multiple GPUs support.
 4.	Optimise GPU code at stage III.
-5.
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+Version 2.06 
+
+1. Removed std::filesystem dependency (g++4.8 compatible).
+2. TCMalloc minimal integrated with source code (used only in Windows).
+3. Successfully compiled under OS X.
+
+
