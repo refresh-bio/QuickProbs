@@ -62,7 +62,10 @@ source_group("Multiple" FILES ${MSA_FILES})
 source_group("Kernels" FILES ${KERNEL_FILES})
 
 add_library(KernelAlignment STATIC ${MAIN_FILES} ${KERNEL_FILES} ${MSA_FILES})
-target_link_libraries(KernelAlignment ${OpenCL_LIBRARIES} tcmalloc Alignment Common Hardware)
+target_link_libraries(KernelAlignment 
+	debug ${TCMalloc_LIBRARIES_DEBUG} 
+	optimized ${TCMalloc_LIBRARIES_RELEASE}
+	general ${OpenCL_LIBRARIES} Alignment Common Hardware)
 
 #if (WIN32)
 #	add_custom_command(TARGET KernelRepository 

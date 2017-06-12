@@ -43,7 +43,7 @@ clex::DeviceInfo::DeviceInfo(const cl::Device &reference)
 	cacheSize				= reference.getInfo<CL_DEVICE_GLOBAL_MEM_CACHE_SIZE>();
 	cacheLineSize			= reference.getInfo<CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE>();
 
-	localMemSize			= std::min((size_t)32768, reference.getInfo<CL_DEVICE_LOCAL_MEM_SIZE>());
+	localMemSize			= std::min((size_t)32768, (size_t)reference.getInfo<CL_DEVICE_LOCAL_MEM_SIZE>());
 	localMemType			= reference.getInfo<CL_DEVICE_LOCAL_MEM_TYPE>();
 	
 	maxConstantBufferSize	= reference.getInfo<CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE>();
