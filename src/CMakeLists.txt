@@ -22,8 +22,8 @@ if (WIN32)
 	set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} /openmp" )
 	set(System_LIBRARIES "psapi.lib")
 	
-	find_library(TCMalloc_LIBRARIES_DEBUG libtcmalloc_minimal_debug PATHS ${TCMalloc_LIBRARYDIR})
-	find_library(TCMalloc_LIBRARIES_RELEASE libtcmalloc_minimal PATHS ${TCMalloc_LIBRARYDIR})
+	#find_library(TCMalloc_LIBRARIES_DEBUG libtcmalloc_minimal_debug PATHS ${TCMalloc_LIBRARYDIR})
+	#find_library(TCMalloc_LIBRARIES_RELEASE libtcmalloc_minimal PATHS ${TCMalloc_LIBRARYDIR})
 	
 else()
 	set(TCMalloc_LIBRARYDIR "/usr/lib" CACHE STRING "TCMalloc library directory")
@@ -47,4 +47,5 @@ add_subdirectory(Alignment)
 add_subdirectory(KernelAlignment)
 add_subdirectory(Console)
 add_subdirectory(Console-OpenCL)
+add_subdirectory(tcmalloc)
 
